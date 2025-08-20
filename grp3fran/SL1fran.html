@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Medical Adventures - STEAMtopia MED</title>
+  <meta charset="UTF-8" />
+  <style>
+    /* ===== BASE STYLES ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f0f9ff;
+      margin-left: 250px;
+      color: #333;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #d1e7ff;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 250px;
+      z-index: 90;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .group-indicator {
+      font-weight: 600;
+      color: #2a6f97;
+      padding: 8px 15px;
+      border-radius: 20px;
+      background-color: #e6f2ff;
+      display: flex;
+      align-items: center;
+    }
+
+    .group-indicator i {
+      margin-right: 8px;
+      color: #2a6f97;
+    }
+
+    .search-bar {
+      width: 300px;
+      padding: 10px 15px;
+      border-radius: 20px;
+      border: 2px solid #a8d1ff;
+      font-size: 16px;
+      background-color: #f8fbff;
+      transition: all 0.3s;
+    }
+
+    .search-bar:focus {
+      outline: none;
+      border-color: #2a6f97;
+      box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.2);
+    }
+
+    .right-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .right-section a {
+      margin-left: 15px;
+      color: #2a6f97;
+      font-size: 18px;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .right-section a:hover {
+      transform: scale(1.1);
+    }
+
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #2a6f97;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background-color: #1a4b6d;
+    }
+
+    .sidebar img {
+      width: 110px;
+      height: 90px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      font-family: 'Comic Neue', cursive;
+    }
+
+    .sidebar-menu {
+      width: 100%;
+      list-style: none;
+      padding: 20px 0;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .sidebar-menu li {
+      margin: 8px 0;
+    }
+
+    .sidebar-menu a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      margin: 0 10px;
+    }
+
+    .sidebar-menu a i {
+      margin-right: 12px;
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .sidebar-menu a:hover {
+      background-color: #3a8fc7;
+    }
+
+    .sidebar-menu a.active {
+      background-color: #1a4b6d;
+      font-weight: bold;
+    }
+
+    /* Main content area */
+    .main-content {
+      margin-top: 80px;
+      padding: 25px;
+    }
+
+    /* Section headers */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #2a6f97;
+    }
+
+    .section-header h2 {
+      color: #2a6f97;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .section-header h2 i {
+      margin-right: 10px;
+    }
+
+    .section-header .btn {
+      padding: 8px 15px;
+      font-size: 14px;
+    }
+
+    /* Material cards */
+    .material-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+    }
+
+    .material-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .material-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .material-title {
+      color: #2a6f97;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .material-meta {
+      display: flex;
+      gap: 15px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .material-meta span {
+      display: flex;
+      align-items: center;
+    }
+
+    .material-meta i {
+      margin-right: 5px;
+      color: #2a6f97;
+    }
+
+    .material-content {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .material-thumbnail {
+      width: 150px;
+      height: 100px;
+      background-color: #e6f2ff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2a6f97;
+      font-size: 40px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .material-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .material-description {
+      color: #555;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    .material-files {
+      background: #f8fbff;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .file-item:last-child {
+      border-bottom: none;
+    }
+
+    .file-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #e6f2ff;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2a6f97;
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .file-info {
+      flex-grow: 1;
+    }
+
+    .file-name {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 3px;
+    }
+
+    .file-meta {
+      color: #666;
+      font-size: 12px;
+    }
+
+    .file-actions a {
+      color: #2a6f97;
+      margin-left: 10px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .file-actions a:hover {
+      text-decoration: underline;
+    }
+
+    /* Form styles */
+    .submission-form {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #2a6f97;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #d1e7ff;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #2a6f97;
+      box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.2);
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+    }
+
+    .btn-primary {
+      background-color: #2a6f97;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #1a4b6d;
+    }
+
+    .btn-outline {
+      border: 2px solid #2a6f97;
+      color: #2a6f97;
+      background: white;
+    }
+
+    .btn-outline:hover {
+      background-color: #f0f9ff;
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 14px;
+    }
+
+    /* New styles for activity submission forms */
+    .activity-form {
+      background: #f8fbff;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 15px;
+      border: 1px dashed #2a6f97;
+    }
+
+    .activity-form h4 {
+      color: #2a6f97;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .activity-form h4 i {
+      margin-right: 8px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      body {
+        margin-left: 0;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .top-bar {
+        left: 0;
+      }
+      
+      .material-content {
+        flex-direction: column;
+      }
+      
+      .material-thumbnail {
+        width: 100%;
+        height: 150px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .search-bar {
+        width: 150px;
+      }
+
+      .right-section {
+        display: -moz-popup;
+      }
+
+      
+      
+      .material-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .material-meta {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    /* Animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* New section styles */
+    .content-section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      color: #2a6f97;
+      font-size: 22px;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #d1e7ff;
+      display: flex;
+      align-items: center;
+    }
+
+    .section-title i {
+      margin-right: 10px;
+    }
+    
+    /* Tab Navigation */
+    .tab-navigation {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #d1e7ff;
+    }
+    
+    .tab-btn {
+      padding: 10px 20px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: #666;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s;
+    }
+    
+    .tab-btn.active {
+      color: #2a6f97;
+    }
+    
+    .tab-btn.active:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #2a6f97;
+    }
+    
+    .tab-btn:hover {
+      color: #2a6f97;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<header class="top-bar">
+  <div class="group-indicator">
+    <i class="fas fa-users"></i> Mini Explorers (6-8 ans)
+  </div>
+  <div class="right-section">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#"><i class="fab fa-medium-m"></i></a>
+    <a href="mailto:steamtopia.team@gmail.com" class="email-contact">
+      <i class="fas fa-envelope"></i></a>
+  </div>
+</header>
+
+<aside class="sidebar">
+  <div class="logo-container">
+    <img src="/logo.png" alt="STEAMtopia MED Logo" class="floating">
+    <h2 class="logo">STEAMtopia MED</h2>
+  </div>
+  
+  <ul class="sidebar-menu">
+    <li><a href="/home3fran.html"><i class="fas fa-home"></i> Accueil</a></li>
+    <li><a href="/grp3fran/LS1fran.html"><i class="fas fa-video"></i> Sessions Live</a></li>
+    <li><a href="/grp3fran/teacher1fran.html"><i class="fas fa-chalkboard-teacher"></i> Enseignants</a></li>
+    <li><a href="/grp3fran/MA1fran.html"><i class="fas fa-heartbeat"></i> Aventures Médicales</a></li>
+    <li><a href="/grp3fran/SL1fran.html" class="active"><i class="fas fa-flask"></i> Laboratoire Scientifique</a></li>
+    <li><a href="/grp3fran/TP1fran.html"><i class="fas fa-robot"></i> Terrain de Jeu Techno</a></li>
+    <li><a href="/grp3fran/CC1fran.html"><i class="fas fa-paint-brush"></i> Coin Créatif</a></li>
+    <li><a href="/grp3fran/MG1fran.html"><i class="fas fa-calculator"></i> Jeux Mathématiques</a></li>
+    <!--<li><a href="#"><i class="fas fa-user-tie"></i> Conférencier Invité</a></li>
+    <li><a href="#"><i class="fas fa-trophy"></i> Réalisations</a></li>
+    <li><a href="#"><i class="fas fa-book"></i> Heure du Conte</a></li>-->
+    <li><a href="/grp3fran/G1fran.html"><i class="fas fa-cog"></i> Directives</a></li>
+    <!--<li><a href="#"><i class="fas fa-donate"></i> Donation</a></li>-->
+    <li><a href="/grp3fran/SH1fran.html"><i class="fas fa-hand-holding-heart"></i> Support & Aide</a></li>
+  </ul>
+</aside>
+
+<main class="main-content">
+  <!-- Tab Navigation -->
+  <div class="tab-navigation">
+    <button class="tab-btn active" data-tab="lessons">Leçons</button>
+    <button class="tab-btn" data-tab="activities">Activités</button>
+    <button class="tab-btn" data-tab="recordings">Leçons Enregistrées</button>
+  </div>
+  
+  <!-- Lessons Tab Content -->
+  <div id="lessons" class="tab-content active">
+    <div class="material-card">
+      <div class="material-header">
+        <h3 class="material-title">Le Cœur Extraordinaire</h3>
+        <div class="material-meta">
+          <span><i class="fas fa-calendar-alt"></i> À faire : 15 oct. 2024</span>
+          <span><i class="fas fa-user"></i> Dr. Sarah</span>
+        </div>
+      </div>
+      <div class="material-content">
+        <div class="material-thumbnail">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="material-description">
+          <p>Découvrez comment fonctionne le cœur en tant que pompe du corps. Cette leçon couvre la structure du cœur, la circulation sanguine et comment garder votre cœur en bonne santé à travers des activités amusantes et des démonstrations.</p>
+        </div>
+      </div>
+      <div class="material-files">
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Vidéo sur le Fonctionnement du Cœur</div>
+            <div class="file-meta">MP4 • 15:32 min • 45 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-play"></i> Regarder</a>
+          </div>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Guide d'Anatomie du Cœur</div>
+            <div class="file-meta">PDF • 12 pages • 8 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-eye"></i> Voir</a>
+          </div>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-newspaper"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Magazine sur la Santé Cardiaque</div>
+            <div class="file-meta">PDF • 24 pages • 15 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-share"></i> Partager</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="material-card">
+      <div class="material-header">
+        <h3 class="material-title">La Puissance du Cerveau</h3>
+        <div class="material-meta">
+          <span><i class="fas fa-calendar-alt"></i> À faire : 22 oct. 2024</span>
+          <span><i class="fas fa-user"></i> Dr. James</span>
+        </div>
+      </div>
+      <div class="material-content">
+        <div class="material-thumbnail">
+          <i class="fas fa-brain"></i>
+        </div>
+        <div class="material-description">
+          <p>Explorez le monde fascinant des neurosciences. Apprenez-en sur les différentes parties du cerveau, comment les neurones communiquent et des moyens d'améliorer votre puissance cérébrale à travers des leçons interactives.</p>
+        </div>
+      </div>
+      <div class="material-files">
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Fonctions Cérébrales Expliquées</div>
+            <div class="file-meta">MP4 • 18:45 min • 52 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-play"></i> Regarder</a>
+          </div>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Bases des Neurosciences</div>
+            <div class="file-meta">PDF • 10 pages • 6 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-eye"></i> Voir</a>
+          </div>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-newspaper"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Science Cérébrale Aujourd'hui</div>
+            <div class="file-meta">PDF • 20 pages • 12 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-share"></i> Partager</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Activities Tab Content -->
+  <div id="activities" class="tab-content">
+    <div class="material-card">
+      <div class="material-header">
+        <h3 class="material-title">Expérience sur le Rythme Cardiaque</h3>
+        <div class="material-meta">
+          <span><i class="fas fa-calendar-alt"></i> À faire : 17 oct. 2024</span>
+          <span><i class="fas fa-user"></i> Dr. Sarah</span>
+        </div>
+      </div>
+      <div class="material-content">
+        <div class="material-thumbnail">
+          <i class="fas fa-heart"></i>
+        </div>
+        <div class="material-description">
+          <p>Mesurez comment différentes activités affectent le rythme cardiaque. Les élèves enregistreront leur pouls au repos et après l'exercice, puis analyseront les résultats pour comprendre comment le cœur s'adapte à l'activité.</p>
+        </div>
+      </div>
+      <div class="material-files">
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Instructions pour l'Activité</div>
+            <div class="file-meta">PDF • 5 pages • 3 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-eye"></i> Voir</a>
+          </div>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Feuille de Collecte de Données</div>
+            <div class="file-meta">PDF • 2 pages • 1 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-print"></i> Imprimer</a>
+          </div>
+        </div>
+      </div>
+      <div class="activity-form">
+        <h4><i class="fas fa-paper-plane"></i> Soumettez Votre Activité</h4>
+        <form action="mailto:steamtopia.team@gmail.com" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="activity-name">Votre Nom</label>
+            <input type="text" id="activity-name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="activity-notes">Notes/Résultats</label>
+            <textarea id="activity-notes" class="form-control" placeholder="Décrivez vos découvertes ou toute question que vous avez"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="activity-file">Téléversez Votre Travail (PDF ou Image)</label>
+            <input type="file" id="activity-file" class="form-control">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Soumettre à l'Enseignant</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="material-card">
+      <div class="material-header">
+        <h3 class="material-title">Construction d'un Modèle de Neurone</h3>
+        <div class="material-meta">
+          <span><i class="fas fa-calendar-alt"></i> À faire : 24 oct. 2024</span>
+          <span><i class="fas fa-user"></i> Dr. James</span>
+        </div>
+      </div>
+      <div class="material-content">
+        <div class="material-thumbnail">
+          <i class="fas fa-project-diagram"></i>
+        </div>
+        <div class="material-description">
+          <p>Créez un modèle 3D d'un neurone en utilisant des matériaux d'artisanat. Apprenez-en sur les dendrites, les axones et les synapses tout en construisant une représentation concrète de la communication entre les cellules nerveuses.</p>
+        </div>
+      </div>
+      <div class="material-files">
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Diagramme de Neurone</div>
+            <div class="file-meta">PDF • 3 pages • 2 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-eye"></i> Voir</a>
+          </div>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Liste de Matériaux</div>
+            <div class="file-meta">PDF • 1 page • 0.5 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-print"></i> Imprimer</a>
+          </div>
+        </div>
+      </div>
+      <div class="activity-form">
+        <h4><i class="fas fa-paper-plane"></i> Soumettez Votre Activité</h4>
+        <form action="mailto:steamtopia.team@gmail.com" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="activity-name2">Votre Nom</label>
+            <input type="text" id="activity-name2" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="activity-photo">Téléversez des Photos de Votre Modèle</label>
+            <input type="file" id="activity-photo" class="form-control" accept="image/*" multiple>
+          </div>
+          <div class="form-group">
+            <label for="activity-description">Description de Votre Modèle</label>
+            <textarea id="activity-description" class="form-control" placeholder="Décrivez les parties de votre modèle de neurone et ce que vous avez appris"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Soumettre à l'Enseignant</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Recorded Lessons Tab Content -->
+  <div id="recordings" class="tab-content">
+    <div class="material-card">
+      <div class="material-header">
+        <h3 class="material-title">Anatomie du Cœur - 15 oct. 2024</h3>
+        <div class="material-meta">
+          <span><i class="fas fa-calendar-alt"></i> Enregistré : 15 oct. 2024</span>
+          <span><i class="fas fa-user"></i> Dr. Sarah</span>
+        </div>
+      </div>
+      <div class="material-content">
+        <div class="material-thumbnail">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="material-description">
+          <p>Enregistrement complet de la leçon sur l'anatomie du cœur, couvrant les cavités, les valves et les voies de circulation sanguine. Inclut une session de questions-réponses avec les élèves.</p>
+        </div>
+      </div>
+      <div class="material-files">
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Enregistrement sur l'Anatomie du Cœur</div>
+            <div class="file-meta">MP4 • 45:18 min • 120 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-play"></i> Regarder</a>
+          </div>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Notes de Session</div>
+            <div class="file-meta">PDF • 8 pages • 5 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-eye"></i> Voir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="material-card">
+      <div class="material-header">
+        <h3 class="material-title">Bases du Cerveau - 8 oct. 2024</h3>
+        <div class="material-meta">
+          <span><i class="fas fa-calendar-alt"></i> Enregistré : 8 oct. 2024</span>
+          <span><i class="fas fa-user"></i> Dr. James</span>
+        </div>
+      </div>
+      <div class="material-content">
+        <div class="material-thumbnail">
+          <i class="fas fa-brain"></i>
+        </div>
+        <div class="material-description">
+          <p>Introduction à la structure et au fonctionnement du cerveau, incluant les lobes, les hémisphères et les zones spécialisées pour le langage, le mouvement et les sens.</p>
+        </div>
+      </div>
+      <div class="material-files">
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Enregistrement sur les Bases du Cerveau</div>
+            <div class="file-meta">MP4 • 38:42 min • 105 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-play"></i> Regarder</a>
+          </div>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="file-info">
+            <div class="file-name">Notes de Session</div>
+            <div class="file-meta">PDF • 6 pages • 4 MB</div>
+          </div>
+          <div class="file-actions">
+            <a href="#"><i class="fas fa-download"></i> Télécharger</a>
+            <a href="#"><i class="fas fa-eye"></i> Voir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Tab functionality
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active class from all buttons and contents
+      tabBtns.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+      
+      // Add active class to clicked button and corresponding content
+      btn.classList.add('active');
+      const tabId = btn.getAttribute('data-tab');
+      document.getElementById(tabId).classList.add('active');
+    });
+  });
+
+  // Floating animation for thumbnails
+  const thumbnails = document.querySelectorAll('.material-thumbnail');
+  thumbnails.forEach(thumb => {
+    thumb.style.animation = 'float 4s ease-in-out infinite';
+  });
+
+  // Add click handlers for file actions
+  document.querySelectorAll('.file-actions a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      // In a real implementation, this would trigger downloads/views
+      console.log(`Action: ${this.querySelector('i').className.split(' ')[1]}`);
+    });
+  });
+
+  // Form submission handler
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      // In a real implementation, this would submit the form
+      console.log('Form submitted to steamtopia.team@gmail.com');
+      // e.preventDefault(); // Uncomment to prevent actual form submission for demo
+    });
+  });
+});
+</script>
+</body>
+</html>

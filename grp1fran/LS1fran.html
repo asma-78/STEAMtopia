@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Live Sessions - STEAMtopia MED</title>
+  <meta charset="UTF-8" />
+  <style>
+    /* ===== BASE STYLES ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f0f9ff;
+      margin-left: 250px;
+      color: #333;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #d1e7ff;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 250px;
+      z-index: 90;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .group-indicator {
+      font-weight: 600;
+      color: #2a6f97;
+      padding: 8px 15px;
+      border-radius: 20px;
+      background-color: #e6f2ff;
+      display: flex;
+      align-items: center;
+    }
+
+    .group-indicator i {
+      margin-right: 8px;
+      color: #2a6f97;
+    }
+
+  
+
+    
+
+    .right-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .right-section a {
+      margin-left: 15px;
+      color: #2a6f97;
+      font-size: 18px;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .right-section a:hover {
+      transform: scale(1.1);
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #2a6f97;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background-color: #1a4b6d;
+    }
+
+    .sidebar img {
+      width: 110px;
+      height: 90px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      font-family: 'Comic Neue', cursive;
+    }
+
+    .sidebar-menu {
+      width: 100%;
+      list-style: none;
+      padding: 20px 0;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .sidebar-menu li {
+      margin: 8px 0;
+    }
+
+    .sidebar-menu a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      margin: 0 10px;
+    }
+
+    .sidebar-menu a i {
+      margin-right: 12px;
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .sidebar-menu a:hover {
+      background-color: #3a8fc7;
+    }
+
+    .sidebar-menu a.active {
+      background-color: #1a4b6d;
+      font-weight: bold;
+    }
+
+    /* Main content area */
+    .main-content {
+      margin-top: 80px;
+      padding: 25px;
+    }
+
+    /* Live Sessions Banner */
+    .sessions-banner {
+      background: linear-gradient(135deg, #2a6f97 0%, #4fa3d1 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .sessions-banner h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      font-family: 'Comic Neue', cursive;
+      position: relative;
+      z-index: 2;
+    }
+
+    .sessions-banner p {
+      font-size: 18px;
+      max-width: 70%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .sessions-banner .banner-icons {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 100px;
+      opacity: 0.2;
+      z-index: 1;
+    }
+
+    /* Live Sessions Grid */
+    .sessions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .session-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+
+    .session-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .session-thumbnail {
+      height: 200px;
+      background-color: #2a6f97;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 50px;
+      position: relative;
+    }
+
+    .session-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .session-live {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #ff4d4d;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      animation: pulse 1.5s infinite;
+    }
+
+    .session-details {
+      padding: 20px;
+    }
+
+    .session-details h3 {
+      color: #2a6f97;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .session-meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .session-meta i {
+      margin-right: 5px;
+      color: #2a6f97;
+    }
+
+    .session-meta span {
+      margin-right: 15px;
+    }
+
+    .session-description {
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background-color: #2a6f97;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #1a4b6d;
+    }
+
+    /* Upcoming Sessions */
+    .upcoming-sessions {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .upcoming-sessions h2 {
+      color: #2a6f97;
+      margin-bottom: 20px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .upcoming-sessions h2 i {
+      margin-right: 10px;
+    }
+
+    .session-list {
+      list-style: none;
+    }
+
+    .session-item {
+      display: flex;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      align-items: center;
+    }
+
+    .session-date {
+      background: #2a6f97;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      min-width: 70px;
+      text-align: center;
+      margin-right: 15px;
+    }
+
+    .session-date .day {
+      font-size: 20px;
+      font-weight: bold;
+      display: block;
+    }
+
+    .session-date .month {
+      font-size: 12px;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    .session-info {
+      flex-grow: 1;
+    }
+
+    .session-info h4 {
+      color: #2a6f97;
+      margin-bottom: 5px;
+    }
+
+    .session-info p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .session-join {
+      background: #2a6f97;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .session-join:hover {
+      background: #1a4b6d;
+    }
+
+    /* Recorded Sessions */
+    .recorded-sessions {
+      margin-top: 30px;
+    }
+
+    .recorded-sessions h2 {
+      color: #2a6f97;
+      margin-bottom: 20px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .recorded-sessions h2 i {
+      margin-right: 10px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      body {
+        margin-left: 0;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .top-bar {
+        left: 0;
+      }
+      
+      .sessions-banner p {
+        max-width: 100%;
+      }
+      
+      .sessions-banner .banner-icons {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sessions-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .search-bar {
+        width: 150px;
+      }
+
+      .right-section {
+        display: none;
+      }
+
+      .email-contact {
+        display: none;
+      }
+    }
+
+    /* Animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+  
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+<header class="top-bar">
+  <div class="group-indicator">
+    <i class="fas fa-users"></i> Mini Explorateurs (6-8 ans)
+  </div>
+  <div class="right-section">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#"><i class="fab fa-medium-m"></i></a>
+    <a href="mailto:steamtopia.team@gmail.com" class="email-contact">
+      <i class="fas fa-envelope"></i>
+    </a>
+  </div>
+</header>
+
+<aside class="sidebar">
+  <div class="logo-container">
+    <img src="/logo.png" alt="Logo STEAMtopia MED" class="floating">
+    <h2 class="logo">STEAMtopia MED</h2>
+  </div>
+  
+  <ul class="sidebar-menu">
+    <li><a href="/home1fran.html"><i class="fas fa-home"></i> Accueil</a></li>
+    <li><a href="/grp1fran/LS1fran.html" class="active"><i class="fas fa-video"></i> Sessions en direct</a></li>
+    <li><a href="/grp1fran/teacher1fran.html"><i class="fas fa-chalkboard-teacher"></i> Enseignants</a></li>
+    <li><a href="/grp1fran/MA1fran.html"><i class="fas fa-heartbeat"></i> Aventures Médicales</a></li>
+    <li><a href="/grp1fran/SL1fran.html"><i class="fas fa-flask"></i> Laboratoire Scientifique</a></li>
+    <li><a href="/grp1fran/TP1fran.html"><i class="fas fa-robot"></i> Terrain de Jeu Technologique</a></li>
+    <li><a href="/grp1fran/CC1fran.html"><i class="fas fa-paint-brush"></i> Coin Créatif</a></li>
+    <li><a href="/grp1fran/MG1fran.html"><i class="fas fa-calculator"></i> Jeux Mathématiques</a></li>
+    <!--<li><a href="#"><i class="fas fa-user-tie"></i> Intervenant Invité</a></li>
+    <li><a href="#"><i class="fas fa-trophy"></i> Réalisations</a></li>
+    <li><a href="#"><i class="fas fa-book"></i> Heure du Conte</a></li>-->
+    <li><a href="/grp1fran/G1fran.html"><i class="fas fa-cog"></i> Directives</a></li>
+    <!--<li><a href="#"><i class="fas fa-donate"></i> Donation</a></li>-->
+    <li><a href="/grp1fran/SH1fran.html"><i class="fas fa-hand-holding-heart"></i> Support & Aide</a></li>
+  </ul>
+</aside>
+
+<main class="main-content">
+  <!-- Bannière des Sessions -->
+  <div class="sessions-banner">
+    <h1>Sessions d'Apprentissage en Direct <i class="fas fa-video"></i></h1>
+    <p>Rejoignez nos sessions interactives en direct avec des médecins, scientifiques et invités spéciaux !</p>
+    <div class="banner-icons">
+      <i class="fas fa-video"></i>
+    </div>
+  </div>
+
+  <!-- Sessions en Direct Actuelles -->
+  <div class="upcoming-sessions">
+    <h2><i class="fas fa-broadcast-tower"></i> En Ce Moment</h2>
+    <ul class="session-list">
+      <li class="session-item">
+        <div class="session-date" style="background-color: #ff4d4d;">
+          <span class="day">EN DIRECT</span>
+          <span class="month">MAINTENANT</span>
+        </div>
+        <div class="session-info">
+          <h4>Rencontrez un Vrai Chirurgien !</h4>
+          <p><i class="fas fa-user-md"></i> Dr. Sarah Johnson | <i class="fas fa-clock"></i> 45 min restantes</p>
+        </div>
+        <a href="#" class="session-join">Rejoindre</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Sessions à Venir -->
+  <div class="upcoming-sessions">
+    <h2><i class="fas fa-calendar-alt"></i> Sessions à Venir</h2>
+    <ul class="session-list">
+      <li class="session-item">
+        <div class="session-date">
+          <span class="day">15</span>
+          <span class="month">OCT</span>
+        </div>
+        <div class="session-info">
+          <h4>Comment Fonctionne le Cœur</h4>
+          <p><i class="fas fa-user-md"></i> Dr. Michael Chen | <i class="fas fa-clock"></i> 16:00</p>
+        </div>
+        <a href="#" class="session-join">Rappel</a>
+      </li>
+      <li class="session-item">
+        <div class="session-date">
+          <span class="day">18</span>
+          <span class="month">OCT</span>
+        </div>
+        <div class="session-info">
+          <h4>Science des Germes</h4>
+          <p><i class="fas fa-microscope"></i> Microbiologiste Lisa Park | <i class="fas fa-clock"></i> 15:30</p>
+        </div>
+        <a href="#" class="session-join">Rappel</a>
+      </li>
+      <li class="session-item">
+        <div class="session-date">
+          <span class="day">22</span>
+          <span class="month">OCT</span>
+        </div>
+        <div class="session-info">
+          <h4>Visite Virtuelle d'Hôpital</h4>
+          <p><i class="fas fa-hospital"></i> Infirmier James Wilson | <i class="fas fa-clock"></i> 11:00</p>
+        </div>
+        <a href="#" class="session-join">Rappel</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Sessions Enregistrées -->
+  <div class="recorded-sessions">
+    <h2><i class="fas fa-video"></i>Nouvelles Sessions Enregistrées</h2>
+    <div class="sessions-grid">
+      <div class="session-card">
+        <div class="session-thumbnail">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="session-details">
+          <h3>Comprendre Nos Poumons</h3>
+          <div class="session-meta">
+            <span><i class="fas fa-user-md"></i> Dr. Emma Roberts</span>
+            <span><i class="fas fa-clock"></i> 32 min</span>
+          </div>
+          <p class="session-description">Découvrez comment fonctionnent nos poumons et pourquoi la respiration est si importante !</p>
+          <a href="#" class="btn btn-primary">Regarder</a>
+          <a href="#" class="btn btn-primary">Leçon</a>
+        </div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-thumbnail">
+          <i class="fas fa-brain"></i>
+        </div>
+        <div class="session-details">
+          <h3>Le Pouvoir du Cerveau !</h3>
+          <div class="session-meta">
+            <span><i class="fas fa-user-md"></i> Neurologue Dr. Patel</span>
+            <span><i class="fas fa-clock"></i> 28 min</span>
+          </div>
+          <p class="session-description">Découvrez comment votre cerveau contrôle tout ce que vous faites !</p>
+          <a href="#" class="btn btn-primary">Regarder</a>
+          <a href="#" class="btn btn-primary">Leçon</a>
+        </div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-thumbnail">
+          <i class="fas fa-bone"></i>
+        </div>
+        <div class="session-details">
+          <h3>Des Os Super Solides</h3>
+          <div class="session-meta">
+            <span><i class="fas fa-user-md"></i> Dr. Carlos Mendez</span>
+            <span><i class="fas fa-clock"></i> 25 min</span>
+          </div>
+          <p class="session-description">Pourquoi les os sont plus solides que l'acier et comment les garder en bonne santé !</p>
+          <a href="#" class="btn btn-primary">Regarder</a>
+          <a href="#" class="btn btn-primary" style="background-color: #ee065b;">Leçon</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Make the banner icon float
+  const bannerIcons = document.querySelector('.banner-icons');
+  if (bannerIcons) {
+    bannerIcons.style.animation = 'float 4s ease-in-out infinite';
+  }
+
+  // This would be where you add actual functionality like:
+  // - Loading live session status
+  // - Handling join buttons
+  // - Implementing reminders
+  
+  console.log('Live Sessions page loaded!');
+});
+</script>
+</body>
+</html>

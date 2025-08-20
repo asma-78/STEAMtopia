@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>الإرشادات - STEAMtopia MED</title>
+  <meta charset="UTF-8" />
+  <style>
+    /* ===== BASE STYLES ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f0f9ff;
+      margin-right: 250px;
+      color: #333;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #d1e7ff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 250px;
+      z-index: 90;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .group-indicator {
+      font-weight: 600;
+      color: #2a6f97;
+      padding: 8px 15px;
+      border-radius: 20px;
+      background-color: #e6f2ff;
+      display: flex;
+      align-items: center;
+    }
+
+    .group-indicator i {
+      margin-left: 8px;
+      color: #2a6f97;
+    }
+
+    .search-bar {
+      width: 300px;
+      padding: 10px 15px;
+      border-radius: 20px;
+      border: 2px solid #a8d1ff;
+      font-size: 16px;
+      background-color: #f8fbff;
+      transition: all 0.3s;
+    }
+
+    .search-bar:focus {
+      outline: none;
+      border-color: #2a6f97;
+      box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.2);
+    }
+
+    .right-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .right-section a {
+      margin-right: 15px;
+      color: #2a6f97;
+      font-size: 18px;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .right-section a:hover {
+      transform: scale(1.1);
+    }
+
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      position: fixed;
+      right: 0;
+      top: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #2a6f97;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background-color: #1a4b6d;
+    }
+
+    .sidebar img {
+      width: 110px;
+      height: 90px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      font-family: 'Comic Neue', cursive;
+    }
+
+    .sidebar-menu {
+      width: 100%;
+      list-style: none;
+      padding: 20px 0;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .sidebar-menu li {
+      margin: 8px 0;
+    }
+
+    .sidebar-menu a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      margin: 0 10px;
+    }
+
+    .sidebar-menu a i {
+      margin-left: 12px;
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .sidebar-menu a:hover {
+      background-color: #3a8fc7;
+    }
+
+    .sidebar-menu a.active {
+      background-color: #1a4b6d;
+      font-weight: bold;
+    }
+
+    /* Main content area */
+    .main-content {
+      margin-top: 80px;
+      padding: 25px;
+    }
+
+    /* Section headers */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #2a6f97;
+    }
+
+    .section-header h2 {
+      color: #2a6f97;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .section-header h2 i {
+      margin-left: 10px;
+    }
+
+    .section-header .btn {
+      padding: 8px 15px;
+      font-size: 14px;
+    }
+
+    /* Guidelines cards */
+    .guideline-card {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .guideline-header {
+      margin-bottom: 20px;
+    }
+
+    .guideline-title {
+      color: #2a6f97;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .guideline-content {
+      color: #555;
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    .guideline-content h3 {
+      color: #2a6f97;
+      margin: 20px 0 10px;
+      font-size: 18px;
+    }
+
+    .guideline-content ul, .guideline-content ol {
+      margin-right: 20px;
+      margin-bottom: 15px;
+    }
+
+    .guideline-content li {
+      margin-bottom: 8px;
+    }
+
+    .important-note {
+      background-color: #fff9e6;
+      border-right: 4px solid #ffcc00;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .contact-info {
+      background-color: #e6f2ff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+    }
+
+    .btn-primary {
+      background-color: #2a6f97;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #1a4b6d;
+    }
+
+    .btn-outline {
+      border: 2px solid #2a6f97;
+      color: #2a6f97;
+      background: white;
+    }
+
+    .btn-outline:hover {
+      background-color: #f0f9ff;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      body {
+        margin-right: 0;
+      }
+      
+      .sidebar {
+        transform: translateX(100%);
+        transition: transform 0.3s;
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .top-bar {
+        right: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .search-bar {
+        width: 150px;
+      }
+
+      .right-section {
+        display: none;
+      }
+
+      .email-contact {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="top-bar">
+  <div class="right-section">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#"><i class="fab fa-medium-m"></i></a>
+    <a href="mailto:steamtopia.team@gmail.com" class="email-contact">
+      <i class="fas fa-envelope"></i></a>
+  </div>
+  <div class="group-indicator">
+    <i class="fas fa-users"></i> المستكشفون الصغار (6-8 سنوات)
+  </div>
+</header>
+
+<aside class="sidebar">
+  <div class="logo-container">
+    <img src="/logo.png" alt="شعار STEAMtopia MED" class="floating">
+    <h2 class="logo">STEAMtopia MED</h2>
+  </div>
+  
+  <ul class="sidebar-menu">
+    <li><a href="/home1arab.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+    <li><a href="/grp1arab/LS1arab.html"><i class="fas fa-video"></i> الجلسات المباشرة</a></li>
+    <li><a href="/grp1arab/teacher1arab.html"><i class="fas fa-chalkboard-teacher"></i> المعلمون</a></li>
+    <li><a href="/grp1arab/MA1arab.html"><i class="fas fa-heartbeat"></i> المغامرات الطبية</a></li>
+    <li><a href="/grp1arab/SL1arab.html"><i class="fas fa-flask"></i> المختبر العلمي</a></li>
+    <li><a href="/grp1arab/TP1arab.html"><i class="fas fa-robot"></i> ملعب التكنولوجيا</a></li>
+    <li><a href="/grp1arab/CC1arab.html"><i class="fas fa-paint-brush"></i> الركن الإبداعي</a></li>
+    <li><a href="/grp1arab/MG1arab.html"><i class="fas fa-calculator"></i> ألعاب الرياضيات</a></li>
+    <li><a href="/grp1arab/G1arab.html" class="active"><i class="fas fa-cog"></i> الإرشادات</a></li>
+    <li><a href="/grp1arab/SH1arab.html"><i class="fas fa-hand-holding-heart"></i> الدعم والمساعدة</a></li>
+  </ul>
+</aside>
+
+<main class="main-content">
+  <div class="section-header">
+    <h2><i class="fas fa-info-circle"></i> إرشادات STEAMtopia MED</h2>
+  </div>
+
+  <div class="guideline-card">
+    <div class="guideline-header">
+      <h2 class="guideline-title"><i class="fas fa-graduation-cap"></i> عن برنامجنا</h2>
+    </div>
+    <div class="guideline-content">
+      <p>STEAMtopia MED هو منصة تعليمية مبتكرة مصممة لتقديم المفاهيم الطبية والعلمية للأطفال بعمر 6-8 سنوات بطريقة ممتعة وجذابة. يجمع برنامجنا بين التعلم النظري والأنشطة العملية لتحفيز فضول الأطفال الطبيعي.</p>
+      
+      <div class="important-note">
+        <p><strong>ملاحظة مهمة:</strong> محتوانا مصمم لأغراض تعليمية وترفيهية فقط. لا يحل محل الاستشارة الطبية المهنية. لأية مخاوف طبية، يرجى استشارة أخصائي رعاية صحية مؤهل.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="guideline-card">
+    <div class="guideline-header">
+      <h2 class="guideline-title"><i class="fas fa-user-shield"></i> السلامة والخصوصية</h2>
+    </div>
+    <div class="guideline-content">
+      <h3>حماية البيانات</h3>
+      <p>نحن نأخذ حماية بياناتك الشخصية على محمل الجد:</p>
+      <ul>
+        <li>نقوم فقط بجمع المعلومات الضرورية</li>
+        <li>يتم تخزين جميع البيانات بشكل آمن</li>
+        <li>لا نشارك معلوماتك مع أطراف ثالثة دون موافقتك</li>
+      </ul>
+      
+      <h3>السلامة على الإنترنت</h3>
+      <p>لضمان تجربة آمنة:</p>
+      <ul>
+        <li>جميع الجلسات عبر الإنترنت يتم إدارتها</li>
+        <li>يتم مراقبة الدردشات والتفاعلات</li>
+        <li>نستخدم منصات آمنة لجلساتنا الافتراضية</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="guideline-card">
+    <div class="guideline-header">
+      <h2 class="guideline-title"><i class="fas fa-calendar-check"></i> المشاركة في الجلسات</h2>
+    </div>
+    <div class="guideline-content">
+      <h3>التحضير للجلسات</h3>
+      <p>للحصول على أقصى استفادة من جلساتنا:</p>
+      <ol>
+        <li>تحقق من اتصال الإنترنت قبل الجلسة</li>
+        <li>جهز المواد اللازمة (سيتم توفير قائمة مسبقًا)</li>
+        <li>قم بإنشاء مساحة هادئة ومريحة للطفل</li>
+        <li>اتصل قبل 5 دقائق من وقت بدء الجلسة</li>
+      </ol>
+      
+      <h3>قواعد السلوك</h3>
+      <p>نتوقع من جميع المشاركين:</p>
+      <ul>
+        <li>إظهار الاحترام للمعلمين والمشاركين الآخرين</li>
+        <li>المشاركة الفعالة والبناءة</li>
+        <li>استخدام أدوات التواصل بشكل مناسب</li>
+        <li>اتباع تعليمات السلامة أثناء التجارب</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="guideline-card">
+    <div class="guideline-header">
+      <h2 class="guideline-title"><i class="fas fa-question-circle"></i> الدعم الفني</h2>
+    </div>
+    <div class="guideline-content">
+      <h3>مشاكل شائعة وحلولها</h3>
+      <ul>
+        <li><strong>مشاكل الصوت:</strong> تحقق من إعدادات الصوت واتصال السماعات</li>
+        <li><strong>مشاكل الفيديو:</strong> تأكد من تمكين الكاميرا في الإعدادات</li>
+        <li><strong>اتصال غير مستقر:</strong> حاول الاقتراب من جهاز التوجيه أو تقليل جودة الفيديو</li>
+        <li><strong>الوصول إلى المواد:</strong> تحقق من مجلد التنزيلات أو اتصل بنا</li>
+      </ul>
+      
+      <div class="contact-info">
+        <h3><i class="fas fa-envelope"></i> اتصل بنا</h3>
+        <p>لأية أسئلة أو مشاكل فنية:</p>
+        <ul>
+          <li>البريد الإلكتروني: <a href="mailto:steamtopia.team@gmail.com">steamtopia.team@gmail.com</a></li>
+          <li>وقت الاستجابة: خلال 24 ساعة عمل</li>
+        </ul>
+        <a href="https://docs.google.com/document/d/1QC3SSgq3skh-4UaySyluFjFe-NUSXwl5Dy7V59Sis2A/edit?usp=sharing" class="btn btn-primary" target="_blank">
+          <i class="fas fa-file-alt"></i> عرض وثيقة الإرشادات الكاملة
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Floating animation for thumbnails
+  const thumbnails = document.querySelectorAll('.floating');
+  thumbnails.forEach(thumb => {
+    thumb.style.animation = 'float 4s ease-in-out infinite';
+  });
+
+  // Add click handlers for external links
+  document.querySelectorAll('a[href^="http"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open(this.href, '_blank');
+    });
+  });
+});
+</script>
+</body>
+</html>
