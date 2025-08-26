@@ -555,10 +555,18 @@
     .tab-content.active {
       display: block;
     }
+    @media (max-width: 1024px) {
+  .menu-toggle {
+    display: block;
+  }
+}
   </style>
 </head>
 <body>
 <header class="top-bar">
+  <div class="menu-toggle" style="font-size:24px; cursor:pointer; margin-right:15px; display:none;">
+  <i class="fas fa-bars"></i>
+</div>
   <div class="group-indicator">
     <i class="fas fa-users"></i> Mini Explorers (6-8 years)
   </div>
@@ -975,6 +983,13 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById(tabId).classList.add('active');
     });
   });
+// Sidebar toggle for small screens
+const menuToggle = document.querySelector('.menu-toggle');
+const sidebar = document.querySelector('.sidebar');
+
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+});
 
   // Floating animation for thumbnails
   const thumbnails = document.querySelectorAll('.material-thumbnail');
@@ -1004,4 +1019,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 
 </html>
+
 
