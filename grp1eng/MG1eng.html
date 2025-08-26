@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
   <title>Medical Adventures - STEAMtopia MED</title>
-  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* ===== BASE STYLES ===== */
-    * {
+     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -414,86 +414,7 @@
       padding: 15px;
       margin-top: 15px;
       border: 1px dashed #2a6f97;
-    }
-
-    .activity-form h4 {
-      color: #2a6f97;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-    }
-
-    .activity-form h4 i {
-      margin-right: 8px;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 1024px) {
-      body {
-        margin-left: 0;
-      }
-      
-      .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s;
-      }
-      
-      .sidebar.active {
-        transform: translateX(0);
-      }
-      
-      .top-bar {
-        left: 0;
-      }
-      
-      .material-content {
-        flex-direction: column;
-      }
-      
-      .material-thumbnail {
-        width: 100%;
-        height: 150px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .search-bar {
-        width: 150px;
-      }
-
-      .right-section {
-        display: none;
-      }
-
-      .email-contact {
-        display: none;
-      }
-      
-      .material-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-      
-      .material-meta {
-        width: 100%;
-        justify-content: space-between;
-      }
-    }
-
-    /* Animations */
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-
-    .floating {
-      animation: float 3s ease-in-out infinite;
-    }
-
-    /* New section styles */
-    .content-section {
+    } .content-section {
       margin-bottom: 40px;
     }
 
@@ -555,47 +476,65 @@
     .tab-content.active {
       display: block;
     }
+    
     @media (max-width: 1024px) {
   .menu-toggle {
     display: block;
   }
-}/* Reset margin-left on small screens */
-@media (max-width: 1024px) {
-  body {
-    margin-left: 0;
-  }
+    }
+    .activity-form h4 {
+      color: #2a6f97;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
 
-  .menu-toggle {
-    display: block !important; /* Ensure visible */
-  }
+    .activity-form h4 i {
+      margin-right: 8px;
+    }
 
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
 
-  .sidebar.active {
-    transform: translateX(0);
-  }
-}
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      body {
+        margin-left: 0;
+      }
+
+      .top-bar {
+        left: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+    }
   </style>
 </head>
 <body>
+
 <header class="top-bar">
-  <div class="menu-toggle" style="font-size:24px; cursor:pointer; margin-right:15px; display:none;">
-  <i class="fas fa-bars"></i>
-</div>
-  <div class="group-indicator">
-    <i class="fas fa-users"></i> Mini Explorers (6-8 years)
-  </div>
+  <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+  <div class="group-indicator"><i class="fas fa-users"></i> Mini Explorers (6-8 years)</div>
   <div class="right-section">
     <a href="#"><i class="fab fa-facebook-f"></i></a>
     <a href="https://www.instagram.com/steam.topia/"><i class="fab fa-instagram"></i></a>
     <a href="#"><i class="fab fa-linkedin-in"></i></a>
     <a href="#"><i class="fab fa-medium-m"></i></a>
-    <a href="mailto:steamtopia.team@gmail.com" class="email-contact">
-      <i class="fas fa-envelope"></i> 
-    </a>
+    <a href="mailto:steamtopia.team@gmail.com" class="email-contact"><i class="fas fa-envelope"></i></a>
   </div>
 </header>
 
@@ -988,34 +927,29 @@ document.addEventListener('DOMContentLoaded', function() {
   // Tab functionality
   const tabBtns = document.querySelectorAll('.tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
-  
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      // Remove active class from all buttons and contents
-      tabBtns.forEach(btn => btn.classList.remove('active'));
-      tabContents.forEach(content => content.classList.remove('active'));
-      
-      // Add active class to clicked button and corresponding content
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
       btn.classList.add('active');
-      const tabId = btn.getAttribute('data-tab');
-      document.getElementById(tabId).classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
     });
   });
-// Sidebar toggle for small screens
-const menuToggle = document.querySelector('.menu-toggle');
-const sidebar = document.querySelector('.sidebar');
+  
 
-menuToggle.addEventListener('click', () => {
-  sidebar.classList.toggle('active');
-});
-
-  // Floating animation for thumbnails
-  const thumbnails = document.querySelectorAll('.material-thumbnail');
-  thumbnails.forEach(thumb => {
-    thumb.style.animation = 'float 4s ease-in-out infinite';
+  // Sidebar toggle
+  const menuToggle = document.querySelector('.menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
   });
 
-  // Add click handlers for file actions
+  // Form submission handlers (optional)
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      console.log('Form submitted to steamtopia.team@gmail.com');
+      // e.preventDefault(); // Uncomment to prevent actual submission
+    });  // Add click handlers for file actions
   document.querySelectorAll('.file-actions a').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
@@ -1023,20 +957,8 @@ menuToggle.addEventListener('click', () => {
       console.log(`Action: ${this.querySelector('i').className.split(' ')[1]}`);
     });
   });
-
-  // Form submission handler
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', function(e) {
-      // In a real implementation, this would submit the form
-      console.log('Form submitted to steamtopia.team@gmail.com');
-      // e.preventDefault(); // Uncomment to prevent actual form submission for demo
     });
   });
-});
 </script>
 </body>
-
 </html>
-
-
-
