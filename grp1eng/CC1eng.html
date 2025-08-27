@@ -50,21 +50,9 @@
       color: #2a6f97;
     }
 
-    .search-bar {
-      width: 300px;
-      padding: 10px 15px;
-      border-radius: 20px;
-      border: 2px solid #a8d1ff;
-      font-size: 16px;
-      background-color: #f8fbff;
-      transition: all 0.3s;
-    }
+    
 
-    .search-bar:focus {
-      outline: none;
-      border-color: #2a6f97;
-      box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.2);
-    }
+    
 
     .right-section {
       display: flex;
@@ -436,7 +424,9 @@
       body {
         margin-left: 0;
       }
-      
+      .menu-toggle {
+    display: block;
+  }
       .sidebar {
         transform: translateX(-100%);
         transition: transform 0.3s;
@@ -449,7 +439,9 @@
       .top-bar {
         left: 0;
       }
-      
+      .menu-toggle {
+        display: block;
+      }
       .material-content {
         flex-direction: column;
       }
@@ -460,30 +452,7 @@
       }
     }
 
-    @media (max-width: 768px) {
-      .search-bar {
-        width: 150px;
-      }
-
-      .right-section {
-        display: none;
-      }
-
-      .email-contact {
-        display: none;
-      }
-      
-      .material-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-      
-      .material-meta {
-        width: 100%;
-        justify-content: space-between;
-      }
-    }
+   
 
     /* Animations */
     @keyframes float {
@@ -1007,6 +976,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 
 </html>
+
 
 
 
