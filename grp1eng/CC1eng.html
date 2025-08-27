@@ -944,7 +944,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Add active class to clicked button and corresponding content
       btn.classList.add('active');
-      const tabId = btn.getAttribute('data-tab');
       document.getElementById(tabId).classList.add('active');
     });
   });
@@ -954,7 +953,12 @@ document.addEventListener('DOMContentLoaded', function() {
   thumbnails.forEach(thumb => {
     thumb.style.animation = 'float 4s ease-in-out infinite';
   });
-
+// Sidebar toggle
+  const menuToggle = document.querySelector('.menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+  })
   // Add click handlers for file actions
   document.querySelectorAll('.file-actions a').forEach(link => {
     link.addEventListener('click', function(e) {
@@ -977,6 +981,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 
 </html>
+
 
 
 
