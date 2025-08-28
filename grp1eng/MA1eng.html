@@ -1078,23 +1078,13 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.file-actions a').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      // In a real implementation, this would trigger downloads/views
-      console.log(`Action: ${this.querySelector('i').className.split(' ')[1]}`);
-    });
-  });
-
-  // Form submission handler
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', function(e) {
-      // In a real implementation, this would submit the form
-      console.log('Form submitted to steamtopia.team@gmail.com');
-      // e.preventDefault(); // Uncomment to prevent actual form submission for demo
-    });
-  });
+    
+  
 });
 </script>
 </body>
 
 </html>
+
 
 
