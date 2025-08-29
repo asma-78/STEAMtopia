@@ -505,22 +505,64 @@
       }
     }
 
-    @media (max-width: 768px) {
-      .teachers-grid {
-        grid-template-columns: 1fr;
+    /* Responsive adjustments */
+    @media (min-width: 992px) {
+      body {
+        margin-left: 250px;
       }
       
-      .search-bar {
-        width: 150px;
+      .top-bar {
+        left: 250px;
       }
-
-      .right-section {
+      
+      .sidebar {
+        left: 0;
+      }
+      
+      .menu-toggle {
         display: none;
       }
-
-      .email-contact {
+      
+      .sidebar.active ~ .overlay {
         display: none;
       }
+    }
+
+    @media (max-width: 576px) {
+      .top-bar {
+        padding: 10px 15px;
+      }
+      
+      .group-indicator {
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+      
+      .right-section a {
+        margin-left: 10px;
+        font-size: 14px;
+      }
+      
+      .main-content {
+        margin-top: 70px;
+        padding: 15px;
+      }
+    }
+
+    /* Overlay for mobile when sidebar is active */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+
+    .sidebar.active ~ .overlay {
+      display: block;
     }
 
     /* Animations */
@@ -544,6 +586,7 @@
 <body>
 
 <header class="top-bar">
+  <div class="menu-toggle"><i class="fas fa-bars"></i></div>
   <div class="group-indicator">
     <i class="fas fa-users"></i> Mini Explorers (6-8 years)
   </div>
@@ -788,21 +831,23 @@
 </main>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Make the banner icon float
-  const bannerIcons = document.querySelector('.banner-icons');
-  if (bannerIcons) {
-    bannerIcons.style.animation = 'float 4s ease-in-out infinite';
-  }
 
-  // This would be where you add actual functionality like:
-  // - Loading teacher data
-  // - Implementing search
-  // - Handling profile views
-  
+document.addEventListener('DOMContentLoaded', function () {
+  // Floating animation for logo
+  document.querySelectorAll('.floating').forEach(el => {
+    el.style.animation = 'float 4s ease-in-out infinite';
+  });
+
+  // Sidebar toggle
+  const menuToggle = document.querySelector('.menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  if (menuToggle && sidebar) {
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
+  }
   console.log('Teachers page loaded!');
 });
 </script>
 </body>
-
 </html>
