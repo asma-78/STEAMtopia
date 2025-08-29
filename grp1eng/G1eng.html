@@ -5,318 +5,360 @@
   <title>Guidelines - STEAMtopia MED</title>
   <meta charset="UTF-8" />
   <style>
-    /* ===== BASE STYLES ===== */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Comic Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+     /* ===== BASE STYLES ===== */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Comic Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-    body {
-      background-color: #f0f9ff;
-      margin-left: 250px;
-      color: #333;
-    }
+  body {      
+    transition: margin-left 0.3s ease;
+    background-color: #f0f9ff;
+    color: #333;
+  }
 
-    /* ===== TOP BAR ===== */
-    .top-bar {
-      display: flex;
+  /* ===== TOP BAR ===== */
+  .top-bar { display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 30px;
+      padding: 15px 20px;
       background-color: #ffffff;
       border-bottom: 1px solid #d1e7ff;
       position: fixed;
       top: 0;
       right: 0;
-      left: 250px;
+      left: 0;
       z-index: 90;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
+      transition: left 0.3s ease;
+    
+  }
 
-    .group-indicator {
-      font-weight: 600;
-      color: #2a6f97;
-      padding: 8px 15px;
-      border-radius: 20px;
-      background-color: #e6f2ff;
-      display: flex;
-      align-items: center;
-    }
+  .group-indicator {
+    font-weight: 600;
+    color: #2a6f97;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background-color: #e6f2ff;
+    display: flex;
+    align-items: center;
+  }
 
-    .group-indicator i {
-      margin-right: 8px;
-      color: #2a6f97;
-    }
+  .group-indicator i {
+    margin-right: 8px;
+    color: #2a6f97;
+  }
 
-    .search-bar {
-      width: 300px;
-      padding: 10px 15px;
-      border-radius: 20px;
-      border: 2px solid #a8d1ff;
-      font-size: 16px;
-      background-color: #f8fbff;
-      transition: all 0.3s;
-    }
+  .right-section {
+    display: flex;
+    align-items: center;
+  }
 
-    .search-bar:focus {
-      outline: none;
-      border-color: #2a6f97;
-      box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.2);
-    }
+  .right-section a {
+    margin-left: 15px;
+    color: #2a6f97;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
 
-    .right-section {
-      display: flex;
-      align-items: center;
-    }
+  .right-section a:hover {
+    transform: scale(1.1);
+    color: #1a4b6d;
+  }
 
-    .right-section a {
-      margin-left: 15px;
-      color: #2a6f97;
-      font-size: 18px;
-      transition: all 0.3s;
-      text-decoration: none;
-    }
+  /* ===== SIDEBAR ===== */
+  /* ===== SIDEBAR ===== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px;
+  background-color: #2a6f97;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%); /* hidden by default */
+}
 
-    .right-section a:hover {
-      transform: scale(1.1);
-    }
+.sidebar.active {
+  transform: translateX(0); /* slide in when active */
+}
 
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background-color: #1a4b6d;
+  }
 
-    /* ===== SIDEBAR ===== */
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      width: 250px;
-      background-color: #2a6f97;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      z-index: 100;
-    }
+  .sidebar img {
+    width: 110px;
+    height: 90px;
+    margin-bottom: 10px;
+  }
 
-    .logo-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      background-color: #1a4b6d;
-    }
+  .sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    font-family: 'Comic Neue', cursive;
+  }
 
-    .sidebar img {
-      width: 110px;
-      height: 90px;
-      margin-bottom: 10px;
-    }
+  .sidebar-menu {
+    width: 100%;
+    list-style: none;
+    padding: 20px 0;
+    overflow-y: auto;
+    flex-grow: 1;
+  }
 
-    .sidebar .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: #fff;
-      text-align: center;
-      font-family: 'Comic Neue', cursive;
-    }
+  .sidebar-menu li {
+    margin: 8px 0;
+  }
 
-    .sidebar-menu {
-      width: 100%;
-      list-style: none;
-      padding: 20px 0;
-      overflow-y: auto;
-      flex-grow: 1;
-    }
+  .sidebar-menu a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    margin: 0 10px;
+  }
 
-    .sidebar-menu li {
-      margin: 8px 0;
-    }
+  .sidebar-menu a i {
+    margin-right: 12px;
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+  }
 
-    .sidebar-menu a {
-      text-decoration: none;
-      color: #fff;
-      font-size: 16px;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      transition: all 0.3s ease;
-      border-radius: 6px;
-      margin: 0 10px;
-    }
+  .sidebar-menu a:hover {
+    background-color: #3a8fc7;
+  }
 
-    .sidebar-menu a i {
-      margin-right: 12px;
-      font-size: 18px;
-      width: 24px;
-      text-align: center;
-    }
+  .sidebar-menu a.active {
+    background-color: #1a4b6d;
+    font-weight: bold;
+  }
 
-    .sidebar-menu a:hover {
-      background-color: #3a8fc7;
-    }
+  /* ===== MAIN CONTENT ===== */
+  .main-content {
+    margin-top: 80px;
+    padding: 25px;
+  }
 
-    .sidebar-menu a.active {
-      background-color: #1a4b6d;
-      font-weight: bold;
-    }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2a6f97;
+  }
 
-    /* Main content area */
-    .main-content {
-      margin-top: 80px;
-      padding: 25px;
-    }
+  .section-header h2 {
+    color: #2a6f97;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+  }
 
-    /* Section headers */
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #2a6f97;
-    }
+  .section-header h2 i {
+    margin-right: 10px;
+  }
 
-    .section-header h2 {
-      color: #2a6f97;
-      font-size: 24px;
-      display: flex;
-      align-items: center;
-    }
+  /* ===== GUIDELINE CARDS ===== */
+  .guideline-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+  }
 
-    .section-header h2 i {
-      margin-right: 10px;
-    }
+  .guideline-card:hover {
+    transform: translateY(-3px);
+  }
 
-    .section-header .btn {
-      padding: 8px 15px;
-      font-size: 14px;
-    }
+  .guideline-title {
+    color: #2a6f97;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
 
-    /* Guidelines cards */
-    .guideline-card {
-      background: white;
-      border-radius: 10px;
-      padding: 25px;
-      margin-bottom: 30px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    }
+  .guideline-content {
+    color: #555;
+    line-height: 1.7;
+  }
 
-    .guideline-header {
-      margin-bottom: 20px;
-    }
+  .guideline-content h3 {
+    color: #2a6f97;
+    margin: 20px 0 10px;
+    font-size: 18px;
+  }
 
-    .guideline-title {
-      color: #2a6f97;
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
+  .guideline-content ul,
+  .guideline-content ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+  }
 
-    .guideline-content {
-      color: #555;
-      line-height: 1.7;
-    }
+  .important-note {
+    background-color: #fff9e6;
+    border-left: 4px solid #ffcc00;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+  }
 
-    .guideline-content h3 {
-      color: #2a6f97;
-      margin: 20px 0 10px;
-      font-size: 18px;
-    }
+  .contact-info {
+    background-color: #e6f2ff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
 
-    .guideline-content ul, .guideline-content ol {
-      margin-left: 20px;
-      margin-bottom: 15px;
-    }
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+  }
 
-    .guideline-content li {
-      margin-bottom: 8px;
-    }
+  .btn-primary {
+    background-color: #2a6f97;
+    color: white;
+  }
 
-    .important-note {
-      background-color: #fff9e6;
-      border-left: 4px solid #ffcc00;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 0 4px 4px 0;
-    }
+  .btn-primary:hover {
+    background-color: #1a4b6d;
+  }
 
-    .contact-info {
-      background-color: #e6f2ff;
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
+  .btn-outline {
+    border: 2px solid #2a6f97;
+    color: #2a6f97;
+    background: white;
+  }
 
-    /* Buttons */
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s;
-      cursor: pointer;
-      border: none;
-      font-size: 16px;
-    }
+  .btn-outline:hover {
+    background-color: #f0f9ff;
+  }
 
-    .btn-primary {
-      background-color: #2a6f97;
-      color: white;
-    }
+  /* ===== ANIMATIONS ===== */
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
 
-    .btn-primary:hover {
-      background-color: #1a4b6d;
-    }
-
-    .btn-outline {
-      border: 2px solid #2a6f97;
-      color: #2a6f97;
-      background: white;
-    }
-
-    .btn-outline:hover {
-      background-color: #f0f9ff;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 1024px) {
+  /* ===== RESPONSIVE ===== */
+ /* Responsive adjustments */
+    @media (min-width: 992px) {
       body {
-        margin-left: 0;
-      }
-      
-      .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s;
-      }
-      
-      .sidebar.active {
-        transform: translateX(0);
+        margin-left: 250px;
       }
       
       .top-bar {
+        left: 250px;
+      }
+      
+      .sidebar {
         left: 0;
       }
-    }
-
-    @media (max-width: 768px) {
-      .search-bar {
-        width: 150px;
-      }
-
-      .right-section {
+      
+      .menu-toggle {
         display: none;
       }
-
-      .email-contact {
+      
+      .sidebar.active ~ .overlay {
         display: none;
       }
     }
+
+    @media (max-width: 576px) {
+      .top-bar {
+        padding: 10px 15px;
+      }
+      
+      .group-indicator {
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+      
+      .right-section a {
+        margin-left: 10px;
+        font-size: 14px;
+      }
+      
+      .main-content {
+        margin-top: 70px;
+        padding: 15px;
+      }
+      
+      .guideline-card {
+        padding: 15px;
+      }
+      
+      .guideline-title {
+        font-size: 18px;
+      }
+      
+      .guideline-meta {
+        gap: 8px;
+      }
+      
+      .guideline-meta span {
+        font-size: 12px;
+      }
+      
+      .file-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+    }
+
+    /* Overlay for mobile when sidebar is active */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+
+    .sidebar.active ~ .overlay {
+      display: block;
+    }
+  
   </style>
 </head>
 <body>
 <header class="top-bar">
+  <div class="menu-toggle"><i class="fas fa-bars"></i></div>
   <div class="group-indicator">
     <i class="fas fa-users"></i> Mini Explorers (6-8 years)
   </div>
@@ -445,23 +487,32 @@
 </main>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Floating animation for thumbnails
-  const thumbnails = document.querySelectorAll('.floating');
-  thumbnails.forEach(thumb => {
-    thumb.style.animation = 'float 4s ease-in-out infinite';
+document.addEventListener('DOMContentLoaded', function () {
+  // Floating animation for logo
+  document.querySelectorAll('.floating').forEach(el => {
+    el.style.animation = 'float 4s ease-in-out infinite';
   });
 
-  // Add click handlers for external links
+  // External links open in new tab
   document.querySelectorAll('a[href^="http"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.open(this.href, '_blank');
+    link.addEventListener('click', function (e) {
+      if (!this.classList.contains('btn')) { // keep buttons working normally
+        e.preventDefault();
+        window.open(this.href, '_blank');
+      }
     });
   });
-});
+
+  // Sidebar toggle
+  const menuToggle = document.querySelector('.menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  if (menuToggle && sidebar) {
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
+  }
+})
 </script>
 </body>
 
 </html>
-
