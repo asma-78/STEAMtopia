@@ -408,31 +408,67 @@
         left: 0;
       }
       
-      .sessions-banner p {
-        max-width: 100%;
+      
+    }
+
+    /* Responsive adjustments */
+    @media (min-width: 992px) {
+      body {
+        margin-left: 250px;
       }
       
-      .sessions-banner .banner-icons {
+      .top-bar {
+        left: 250px;
+      }
+      
+      .sidebar {
+        left: 0;
+      }
+      
+      .menu-toggle {
+        display: none;
+      }
+      
+      .sidebar.active ~ .overlay {
         display: none;
       }
     }
 
-    @media (max-width: 768px) {
-      .sessions-grid {
-        grid-template-columns: 1fr;
+    @media (max-width: 576px) {
+      .top-bar {
+        padding: 10px 15px;
       }
       
-      .search-bar {
-        width: 150px;
+      .group-indicator {
+        font-size: 12px;
+        padding: 6px 10px;
       }
+      
+      .right-section a {
+        margin-left: 10px;
+        font-size: 14px;
+      }
+      
+      .main-content {
+        margin-top: 70px;
+        padding: 15px;
+      }
+    }
 
-      .right-section {
-        display: none;
-      }
+    /* Overlay for mobile when sidebar is active */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
 
-      .email-contact {
-        display: none;
-      }
+    .sidebar.active ~ .overlay {
+      display: block;
     }
 
     /* Animations */
@@ -456,6 +492,7 @@
 <body>
 
 <header class="top-bar">
+<div class="menu-toggle"><i class="fas fa-bars"></i></div>
   <div class="group-indicator">
     <i class="fas fa-users"></i> Mini Explorers (6-8 years)
   </div>
@@ -620,22 +657,34 @@
 </main>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Make the banner icon float
-  const bannerIcons = document.querySelector('.banner-icons');
-  if (bannerIcons) {
-    bannerIcons.style.animation = 'float 4s ease-in-out infinite';
+document.addEventListener('DOMContentLoaded', function () {
+  // Floating animation for logo
+  document.querySelectorAll('.floating').forEach(el => {
+    el.style.animation = 'float 4s ease-in-out infinite';
+  });
+
+  // External links open in new tab
+  document.querySelectorAll('a[href^="http"]').forEach(link => {
+    link.addEventListener('click', function (e) {
+      if (!this.classList.contains('btn')) { // keep buttons working normally
+        e.preventDefault();
+        window.open(this.href, '_blank');
+      }
+    });
+  });
+
+  // Sidebar toggle
+  const menuToggle = document.querySelector('.menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  if (menuToggle && sidebar) {
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
   }
 
-  // This would be where you add actual functionality like:
-  // - Loading live session status
-  // - Handling join buttons
-  // - Implementing reminders
-  
   console.log('Live Sessions page loaded!');
-});
+})
 </script>
 </body>
 
 </html>
-
