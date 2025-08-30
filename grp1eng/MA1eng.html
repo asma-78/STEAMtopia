@@ -1052,41 +1052,45 @@
 </main>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Tab functionality
   const tabBtns = document.querySelectorAll('.tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
-  
-  tabBtns.forEach(btn => {
+
+  tabBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      // Remove active class from all buttons and contents
-      tabBtns.forEach(btn => btn.classList.remove('active'));
-      tabContents.forEach(content => content.classList.remove('active'));
-      
-      // Add active class to clicked button and corresponding content
+      const tabId = btn.dataset.tab; // <-- FIX: read target id from data-tab
+
+      // Deactivate everything
+      tabBtns.forEach((b) => b.classList.remove('active'));
+      tabContents.forEach((c) => c.classList.remove('active'));
+
+      // Activate clicked button and matching content
       btn.classList.add('active');
-      const tabId = btn.getAttribute('data-tab');
-      document.getElementById(tabId).classList.add('active');
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
     });
   });
 
   // Floating animation for thumbnails
-  const thumbnails = document.querySelectorAll('.material-thumbnail');
-  thumbnails.forEach(thumb => {
+  document.querySelectorAll('.material-thumbnail').forEach((thumb) => {
     thumb.style.animation = 'float 4s ease-in-out infinite';
   });
 
-  // Add click handlers for file actions
-  document.querySelectorAll('.file-actions a').forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-    
-  
+  // Sidebar toggle
+  const menuToggle = document.querySelector('.menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  if (menuToggle && sidebar) {
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
+  }
 });
 </script>
 </body>
 
 </html>
+
 
 
 
