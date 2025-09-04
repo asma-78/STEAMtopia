@@ -662,23 +662,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.floating').forEach(el => {
     el.style.animation = 'float 4s ease-in-out infinite';
   });
-
-  // External links open in new tab
-  // Only open true external links in a new tab
-document.querySelectorAll('a[href^="http"]').forEach(link => {
-  link.addEventListener('click', function (e) {
-    // If not a button, and not linking to your own site...
-    if (
-      !this.classList.contains('btn') &&
-      !this.href.startsWith(window.location.origin) &&
-      !this.href.startsWith("https://asma-78.github.io/STEAMtopia")
-    ) {
-      e.preventDefault();
-      window.open(this.href, '_blank');
-    }
-    // Otherwise, allow normal navigation
-  });
-});
+  
       }
     });
   });
@@ -698,4 +682,5 @@ document.querySelectorAll('a[href^="http"]').forEach(link => {
 </body>
 
 </html>
+
 
