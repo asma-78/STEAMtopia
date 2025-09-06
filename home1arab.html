@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مرحبًا بكم في STEAMtopia MED</title>
-  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* ===== BASE STYLES DON'T TOUCH ===== */
+    /* ===== BASE STYLES ===== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,8 +16,8 @@
 
     body {
       background-color: #f0f9ff;
-      margin-right: 250px;
       color: #333;
+      transition: margin 0.3s ease;
     }
 
     /* ===== TOP BAR ===== */
@@ -30,7 +31,7 @@
       position: fixed;
       top: 0;
       left: 0;
-      right: 250px;
+      right: 0;
       z-index: 90;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
@@ -58,6 +59,24 @@
       text-decoration: none;
     }
 
+    /* Hamburger Menu */
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+    }
+
+    .hamburger-menu span {
+      height: 3px;
+      width: 100%;
+      background-color: #2a6f97;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
     /* ===== SIDEBAR ===== */
     .sidebar {
       position: fixed;
@@ -70,6 +89,7 @@
       display: flex;
       flex-direction: column;
       z-index: 100;
+      transition: transform 0.3s ease-in-out;
     }
 
     .logo-container {
@@ -139,6 +159,7 @@
     .main-content {
       margin-top: 80px;
       padding: 25px;
+      transition: margin 0.3s ease;
     }
 
     /* Welcome Banner */
@@ -451,23 +472,59 @@
       z-index: 1;
     }
 
+    /* Overlay for mobile */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+
+    /* Animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+  
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+
     /* Responsive Design */
-    @media (max-width: 1024px) {
+    @media (min-width: 993px) {
+      body {
+        margin-right: 250px;
+      }
+      
+      .main-content {
+        margin-right: 0;
+      }
+    }
+
+    @media (max-width: 992px) {
       body {
         margin-right: 0;
       }
       
       .sidebar {
         transform: translateX(100%);
-        transition: transform 0.3s;
       }
       
       .sidebar.active {
         transform: translateX(0);
       }
       
-      .top-bar {
-        right: 0;
+      .hamburger-menu {
+        display: flex;
+      }
+      
+      .overlay.active {
+        display: block;
       }
       
       .welcome-banner p {
@@ -488,229 +545,261 @@
         grid-template-columns: repeat(2, 1fr);
       }
       
-      .search-bar {
-        width: 150px;
+      .top-bar {
+        flex-wrap: wrap;
+      }
+      
+      .right-section {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: center;
       }
     }
 
-    /* Animation */
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-  
-    .floating {
-      animation: float 3s ease-in-out infinite;
+    @media (max-width: 480px) {
+      .medical-grid,
+      .fun-facts {
+        grid-template-columns: 1fr;
+      }
+      
+      .welcome-banner {
+        padding: 20px;
+      }
+      
+      .welcome-banner h1 {
+        font-size: 1.5rem;
+      }
+      
+      .welcome-banner p {
+        font-size: 1rem;
+      }
+      
+      .event-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .event-date {
+        margin-bottom: 15px;
+      }
+      
+      .event-join {
+        align-self: flex-end;
+        margin-top: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <!--we never change this-->
-<header class="top-bar">
-  <div class="group-indicator">
-    <i class="fas fa-users"></i> المستكشفون الصغار (6-8 سنوات)
-  </div>
-  
-  <div class="right-section">
-    <a href="#"><i class="fab fa-facebook-f"></i></a>
-    <a href="https://www.instagram.com/steam.topia/"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-    <a href="#"><i class="fab fa-medium-m"></i></a>
-    <a href="mailto:steamtopia.team@gmail.com"><i class="fas fa-envelope"></i></a>
-  </div>
-</header>
+  <!-- Overlay for mobile when sidebar is open -->
+  <div class="overlay" id="overlay"></div>
 
-<aside class="sidebar">
-  <div class="logo-container">
-    <img src="logo.png" alt="شعار STEAMtopia MED" class="floating">
-    <h2 class="logo">STEAMtopia MED</h2>
-  </div>
-   <!--we will add new section in the futur like donation, Book Club...-->
-  <ul class="sidebar-menu">
-    <li><a href="home1arab.html" class="active"><i class="fas fa-home"></i> الصفحة الرئيسية</a></li>
-    <li><a href="/grp1arab/LS1arab.html"><i class="fas fa-video"></i> الجلسات المباشرة</a></li>
-    <li><a href="/grp1arab/teacher1arab.html"><i class="fas fa-chalkboard-teacher"></i> المعلمون</a></li>
-    <li><a href="/grp1arab/MA1arab.html"><i class="fas fa-heartbeat"></i> المغامرات الطبية</a></li>
-    <li><a href="/grp1arab/SL1arab.html"><i class="fas fa-flask"></i> المختبر العلمي</a></li>
-    <li><a href="/grp1arab/TP1arab.html"><i class="fas fa-robot"></i> ملعب التكنولوجيا</a></li>
-    <li><a href="/grp1arab/CC1arab.html"><i class="fas fa-paint-brush"></i> الركن الإبداعي</a></li>
-    <li><a href="/grp1arab/MG1arab.html"><i class="fas fa-calculator"></i> الألعاب الرياضية</a></li>
-    <li><a href="/grp1arab/G1arab.html"><i class="fas fa-cog"></i> الإرشادات</a></li>
-    <li><a href="/grp1arab/SH1arab.html"><i class="fas fa-hand-holding-heart"></i> الدعم والمساعدة</a></li>
-  </ul>
-</aside>
-
-<main class="main-content">
-  <!-- Welcome Banner -->
-  <div class="welcome-banner">
-    <h1>مرحبًا بك أيها الطبيب المستقبلي!</h1>
-    <p>هل أنت مستعد لمغامرة اليوم الطبية؟ لنستكشف كيف يعمل جسمنا ونتعلم كيف نحافظ على صحة الناس!</p>
-    <div class="banner-icons">
-      <i class="fas fa-stethoscope"></i>
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="hamburger-menu" id="hamburger-menu">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
-  </div>
-
-  <!-- Activity Cards -->
-  <div class="activity-cards">
-    <div class="activity-card">
-      <h3><i class="fas fa-stethoscope"><!--U can change the icon depending on the project--></i> مستكشف القلب</h3>
-      <p>ابنِ سماعة الطبيب الخاصة بك واستمع إلى دقات القلب مثل طبيب حقيقي!</p>
-      <div class="card-footer">
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 45%"></div>
-        </div>
-        <span class="progress-text">45%</span>
-      </div>
-      <a href="#" class="btn btn-primary" style="margin-top: 15px;">استمر</a>
+    
+    <div class="group-indicator">
+      <i class="fas fa-users"></i> المستكشفون الصغار (6-8 سنوات)
     </div>
-
-    <div class="activity-card">
-      <h3><i class="fas fa-dna"><!--U can change the icon depending on the project--></i> محقق الحمض النووي</h3>
-      <p>استخرج الحمض النووي من الفراولة باستخدام أدوات منزلية - العلم سحر!</p>
-      <div class="card-footer">
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 20%"></div>
-        </div>
-        <span class="progress-text">20%</span>
-      </div>
-      <a href="#" class="btn btn-outline" style="margin-top: 15px;">ابدأ</a>
+    
+    <div class="right-section">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/steam.topia/"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-medium-m"></i></a>
+      <a href="mailto:steamtopia.team@gmail.com"><i class="fas fa-envelope"></i></a>
     </div>
+  </header>
 
-    <div class="activity-card">
-      <h3><i class="fas fa-lungs"><!--U can change the icon depending on the project--></i> نموذج الرئة</h3>
-      <p>اصنع نموذجًا للرئة يعمل بالبالونات لترى كيف نتنفس!</p>
-      <div class="card-footer">
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 75%"></div>
-        </div>
-        <span class="progress-text">75%</span>
-      </div>
-      <a href="#" class="btn btn-primary" style="margin-top: 15px;">استمر</a>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo-container">
+      <img src="https://placehold.co/110x90/1a4b6d/white?text=ST" alt="شعار STEAMtopia MED" class="floating">
+      <h2 class="logo">STEAMtopia MED</h2>
     </div>
-  </div>
-
-  <!-- Medical Spotlight -->
-  <div class="medical-spotlight">
-    <h2><i class="fas fa-star"></i> مميز هذا الأسبوع</h2>
-    <div class="medical-grid">
-      <div class="medical-item">
-        <div class="medical-icon">
-          <i class="fas fa-brain"></i>
-        </div>
-        <h4>قوة الدماغ</h4>
-        <p>كيف يتحكم دماغك في جسمك</p>
-      </div>
-      <div class="medical-item">
-        <div class="medical-icon">
-          <i class="fas fa-bone"></i>
-        </div>
-        <h4>العظام الفائقة</h4>
-        <p>لماذا العظام أقوى من الفولاذ</p>
-      </div>
-      <div class="medical-item">
-        <div class="medical-icon">
-          <i class="fas fa-heart"></i>
-        </div>
-        <h4>بطل القلب</h4>
-        <p>المضخة القلبية الاستثنائية</p>
-      </div>
-      <div class="medical-item">
-        <div class="medical-icon">
-          <i class="fas fa-bacterium"></i>
-        </div>
-        <h4>محاربو الجراثيم</h4>
-        <p>كيف تحمينا خلايا الدم البيضاء</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Upcoming Events every week we have to update this-->
-  <div class="upcoming-events">
-    <h2><i class="fas fa-calendar-alt"></i> الأحداث القادمة</h2>
-    <ul class="event-list">
-      <li class="event-item">
-        <div class="event-date">
-          <!--here update the dates and why not the colors too (only the colors of the date)-->
-          <span class="day">15</span>
-          <span class="month">أكتوبر</span>
-        </div>
-        <div class="event-details">
-          <!--name of the session-->
-          <h4>بث مباشر: قابل طبيب أطفال</h4>
-          <!--some information about the session-->
-          <p><i class="far fa-clock"></i> 4:00 مساءً - اطرح أسئلتك!</p>
-        </div>
-        <!--the link to the session -->
-        <a href="#" class="event-join">انضم</a>
-      </li>
-      <li class="event-item">
-        <!--here update the dates and why not the colors too (only the colors of the date)-->
-        <div class="event-date" style="background-color: #4CAF50;">
-          <span class="day">18</span>
-          <span class="month">أكتوبر</span>
-        </div>
-        <div class="event-details">
-          <!--session name-->
-          <h4>عرض طبي</h4>
-          <!--session description-->
-          <p><i class="far fa-clock"></i> شارك مشاريعك الصحية!</p>
-        </div>
-        <!--the link to the session -->
-        <a href="#" class="event-join">استعد</a>
-      </li>
+    
+    <ul class="sidebar-menu">
+      <li><a href="home1arab.html" class="active"><i class="fas fa-home"></i> الصفحة الرئيسية</a></li>
+      <li><a href="/grp1arab/LS1arab.html"><i class="fas fa-video"></i> الجلسات المباشرة</a></li>
+      <li><a href="/grp1arab/teacher1arab.html"><i class="fas fa-chalkboard-teacher"></i> المعلمون</a></li>
+      <li><a href="/grp1arab/MA1arab.html"><i class="fas fa-heartbeat"></i> المغامرات الطبية</a></li>
+      <li><a href="/grp1arab/SL1arab.html"><i class="fas fa-flask"></i> المختبر العلمي</a></li>
+      <li><a href="/grp1arab/TP1arab.html"><i class="fas fa-robot"></i> ملعب التكنولوجيا</a></li>
+      <li><a href="/grp1arab/CC1arab.html"><i class="fas fa-paint-brush"></i> الركن الإبداعي</a></li>
+      <li><a href="/grp1arab/MG1arab.html"><i class="fas fa-calculator"></i> الألعاب الرياضية</a></li>
+      <li><a href="/grp1arab/G1arab.html"><i class="fas fa-cog"></i> الإرشادات</a></li>
+      <li><a href="/grp1arab/SH1arab.html"><i class="fas fa-hand-holding-heart"></i> الدعم والمساعدة</a></li>
     </ul>
-  </div>
+  </aside>
 
-  <!-- Fun Facts every week we have to update this -->
-  <div class="fun-facts">
-    <div class="fun-fact">
-      <h3>هل تعلم؟ 🤔</h3>
-      <!--the fact-->
-      <p>قلبك ينبض حوالي 100,000 مرة في اليوم! هذا مثل التصفيق مرة كل ثانية لمدة 24 ساعة!</p>
-      <div class="fun-fact-icon">
-        <!--remember to change this icon too ( something matches the fact)-->
-        <i class="fas fa-heart"></i>
-      </div>
-    </div>
-    <div class="fun-fact">
-      <!-- here maybe u can change the emoji-->
-      <h3>علم! 🔬</h3>
-      <!--the fact-->
-      <p>يستخدم الأطباء السماعات الطبية للاستماع إلى قلبك ورئتيك. أول سماعة طبية كانت مصنوعة من أنبوب خشبي!</p>
-      <div class="fun-fact-icon">
-        <!-- don't change this icon it's ok-->
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+      <h1>مرحبًا بك أيها الطبيب المستقبلي!</h1>
+      <p>هل أنت مستعد لمغامرة اليوم الطبية؟ لنستكشف كيف يعمل جسمنا ونتعلم كيف نحافظ على صحة الناس!</p>
+      <div class="banner-icons">
         <i class="fas fa-stethoscope"></i>
       </div>
     </div>
-    <div class="fun-fact">
-      <h3>نصيحة صحية! 💡</h3>
-      <!--the advice-->
-      <p>غسل اليدين بالصابون لمدة 20 ثانية (غنِ "عيد ميلاد سعيد" مرتين) يساعد في إبعاد الجراثيم!</p>
-      <div class="fun-fact-icon">
-        <!--change this icon (so it matches the advice)-->
-        <i class="fas fa-hands-wash"></i>
+
+    <!-- Activity Cards -->
+    <div class="activity-cards">
+      <div class="activity-card">
+        <h3><i class="fas fa-stethoscope"></i> مستكشف القلب</h3>
+        <p>ابنِ سماعة الطبيب الخاصة بك واستمع إلى دقات القلب مثل طبيب حقيقي!</p>
+        <div class="card-footer">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 45%"></div>
+          </div>
+          <span class="progress-text">45%</span>
+        </div>
+        <a href="#" class="btn btn-primary" style="margin-top: 15px;">استمر</a>
+      </div>
+
+      <div class="activity-card">
+        <h3><i class="fas fa-dna"></i> محقق الحمض النووي</h3>
+        <p>استخرج الحمض النووي من الفراولة باستخدام أدوات منزلية - العلم سحر!</p>
+        <div class="card-footer">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 20%"></div>
+          </div>
+          <span class="progress-text">20%</span>
+        </div>
+        <a href="#" class="btn btn-outline" style="margin-top: 15px;">ابدأ</a>
+      </div>
+
+      <div class="activity-card">
+        <h3><i class="fas fa-lungs"></i> نموذج الرئة</h3>
+        <p>اصنع نموذجًا للرئة يعمل بالبالونات لترى كيف نتنفس!</p>
+        <div class="card-footer">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 75%"></div>
+          </div>
+          <span class="progress-text">75%</span>
+        </div>
+        <a href="#" class="btn btn-primary" style="margin-top: 15px;">استمر</a>
       </div>
     </div>
-  </div>
-</main>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // This would be where to add interactive features
-  // For example:
-  // - Loading user progress from a database
-  // - Handling button clicks
-  // - Implementing search functionality
+    <!-- Medical Spotlight -->
+    <div class="medical-spotlight">
+      <h2><i class="fas fa-star"></i> مميز هذا الأسبوع</h2>
+      <div class="medical-grid">
+        <div class="medical-item">
+          <div class="medical-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h4>قوة الدماغ</h4>
+          <p>كيف يتحكم دماغك في جسمك</p>
+        </div>
+        <div class="medical-item">
+          <div class="medical-icon">
+            <i class="fas fa-bone"></i>
+          </div>
+          <h4>العظام الفائقة</h4>
+          <p>لماذا العظام أقوى من الفولاذ</p>
+        </div>
+        <div class="medical-item">
+          <div class="medical-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h4>بطل القلب</h4>
+          <p>المضخة القلبية الاستثنائية</p>
+        </div>
+        <div class="medical-item">
+          <div class="medical-icon">
+            <i class="fas fa-bacterium"></i>
+          </div>
+          <h4>محاربو الجراثيم</h4>
+          <p>كيف تحمينا خلايا الدم البيضاء</p>
+        </div>
+      </div>
+    </div>
 
-  // Simple example: Make banner icons float
-  // THOSE ARE OUR FUTURE PLANS AND DON'T touch anything here 
-  const bannerIcons = document.querySelector('.banner-icons');
-  if (bannerIcons) {
-    bannerIcons.style.animation = 'float 4s ease-in-out infinite';
-  }
-});
-</script>
+    <!-- Upcoming Events -->
+    <div class="upcoming-events">
+      <h2><i class="fas fa-calendar-alt"></i> الأحداث القادمة</h2>
+      <ul class="event-list">
+        <li class="event-item">
+          <div class="event-date">
+            <span class="day">15</span>
+            <span class="month">أكتوبر</span>
+          </div>
+          <div class="event-details">
+            <h4>بث مباشر: قابل طبيب أطفال</h4>
+            <p><i class="far fa-clock"></i> 4:00 مساءً - اطرح أسئلتك!</p>
+          </div>
+          <a href="#" class="event-join">انضم</a>
+        </li>
+        <li class="event-item">
+          <div class="event-date" style="background-color: #4CAF50;">
+            <span class="day">18</span>
+            <span class="month">أكتوبر</span>
+          </div>
+          <div class="event-details">
+            <h4>عرض طبي</h4>
+            <p><i class="far fa-clock"></i> شارك مشاريعك الصحية!</p>
+          </div>
+          <a href="#" class="event-join">استعد</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Fun Facts -->
+    <div class="fun-facts">
+      <div class="fun-fact">
+        <h3>هل تعلم؟ 🤔</h3>
+        <p>قلبك ينبض حوالي 100,000 مرة في اليوم! هذا مثل التصفيق مرة كل ثانية لمدة 24 ساعة!</p>
+        <div class="fun-fact-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+      </div>
+      <div class="fun-fact">
+        <h3>علم! 🔬</h3>
+        <p>يستخدم الأطباء السماعات الطبية للاستماع إلى قلبك ورئتيك. أول سماعة طبية كانت مصنوعة من أنبوب خشبي!</p>
+        <div class="fun-fact-icon">
+          <i class="fas fa-stethoscope"></i>
+        </div>
+      </div>
+      <div class="fun-fact">
+        <h3>نصيحة صحية! 💡</h3>
+        <p>غسل اليدين بالصابون لمدة 20 ثانية (غنِ "عيد ميلاد سعيد" مرتين) يساعد في إبعاد الجراثيم!</p>
+        <div class="fun-fact-icon">
+          <i class="fas fa-hands-wash"></i>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburgerMenu = document.getElementById('hamburger-menu');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      
+      // Toggle sidebar on hamburger menu click
+      hamburgerMenu.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      });
+      
+      // Close sidebar when clicking on overlay
+      overlay.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      });
+      
+      // Make banner icons float
+      const bannerIcons = document.querySelector('.banner-icons');
+      if (bannerIcons) {
+        bannerIcons.style.animation = 'float 4s ease-in-out infinite';
+      }
+    });
+  </script>
 </body>
-
 </html>
