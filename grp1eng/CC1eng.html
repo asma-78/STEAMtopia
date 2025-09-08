@@ -17,7 +17,10 @@
             --warning: #FFC107;
             --info: #17a2b8;
         }
-        
+        html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
         * {
             margin: 0;
             padding: 0;
@@ -112,7 +115,6 @@
             max-width: 80px;
             margin-bottom: 10px;
             border-radius: 50%;
-            border: 3px solid white;
         }
         
         .logo {
@@ -501,7 +503,11 @@
                 display: block;
             }
         }
-        
+        @media (max-width: 480px) {
+    .group-indicator {
+        font-size: 0.8rem;
+    }
+}
         @media (max-width: 480px) {
             .top-bar {
                 padding: 10px 15px;
@@ -991,4 +997,5 @@
     </script>
 </body>
 </html>
+
 
