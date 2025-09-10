@@ -6,7 +6,8 @@
     <title>Guidelines - STEAMtopia MED</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Global Styles */
+       
+       /* Global Styles */
         :root {
             --primary: #2c6aa0;
             --secondary: #4a8cbb;
@@ -16,8 +17,11 @@
             --success: #4CAF50;
             --warning: #FFC107;
             --info: #17a2b8;
+            --sidebar-width: 250px;
+            --sidebar-collapsed-width: 70px;
+            --transition-speed: 0.3s;
         }
-        
+       
         * {
             margin: 0;
             padding: 0;
@@ -30,6 +34,7 @@
             color: #333;
             line-height: 1.6;
             min-height: 100vh;
+            transition: margin-left var(--transition-speed);
         }
         
         /* Header Styles */
@@ -45,21 +50,29 @@
             z-index: 1000;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             height: 60px;
+            transition: margin-left var(--transition-speed);
         }
         
         .menu-toggle {
             cursor: pointer;
             font-size: 1.2rem;
             display: none;
+            transition: transform 0.3s;
+        }
+        
+        .menu-toggle.rotated {
+            transform: rotate(90deg);
         }
         
         .group-indicator {
-            display: flex;
-            align-items: center;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-        
+           flex: 1;                 /* take up all space between left and right */
+  display: flex;
+  justify-content: center; /* center its content */
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
         .group-indicator i {
             margin-right: 8px;
             font-size: 1.1rem;
@@ -90,14 +103,29 @@
         
         /* Sidebar Styles */
         .sidebar {
-            position: fixed;
-            width: 250px;
-            height: 100vh;
-            background: white;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.08);
             overflow-y: auto;
-            z-index: 999;
-            transition: transform 0.3s ease;
+            position: fixed;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.08);
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: var(--sidebar-width);
+            color: #fff; 
+            background: white;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: width var(--transition-speed), transform var(--transition-speed);
+        }
+        
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+        
+        .sidebar-menu a {
+            white-space: nowrap; 
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .logo-container {
@@ -106,24 +134,68 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             border-bottom: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            transition: padding var(--transition-speed);
+        }
+        
+        .sidebar.collapsed .logo-container {
+            padding: 35px 10px;
         }
         
         .logo-container img {
             max-width: 80px;
             margin-bottom: 10px;
             border-radius: 50%;
-            border: 3px solid white;
+            transition: max-width var(--transition-speed);
+        }
+        
+        .sidebar.collapsed .logo-container {
+            max-width: 60px;
+            margin-bottom: 10px;
         }
         
         .logo {
             font-size: 1.5rem;
             margin: 0;
             font-weight: 600;
+            transition: opacity var(--transition-speed);
+        }
+        
+        .sidebar.collapsed .logo {
+            visibility: hidden;
+        }
+        .sidebar.collapsed .sidebar-menu span {
+    display: none; /* hides the text when collapsed */
+}
+        .collapse-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .collapse-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .sidebar.collapsed .collapse-toggle {
+            transform: rotate(180deg);
         }
         
         .sidebar-menu {
             list-style: none;
             padding: 15px 0;
+            flex-grow: 1;
+            overflow-x: hidden;
         }
         
         .sidebar-menu li {
@@ -139,6 +211,7 @@
             transition: all 0.3s;
             border-left: 4px solid transparent;
             font-weight: 500;
+            position: relative;
         }
         
         .sidebar-menu a:hover, .sidebar-menu a.active {
@@ -152,31 +225,83 @@
             width: 20px;
             text-align: center;
             color: var(--primary);
+            transition: margin var(--transition-speed);
+            flex-shrink: 0;
         }
         
+        .sidebar.collapsed .sidebar-menu i {
+            margin-right: 0;
+        }
+        
+        .sidebar.collapsed .sidebar-menu span {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .tooltip {
+            position: absolute;
+            left: calc(var(--sidebar-collapsed-width) + 5px);
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-right: 5px solid var(--dark);
+        }
+        
+        .sidebar.collapsed .sidebar-menu a:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .sidebar-footer {
+            padding: 10px 15px;
+            border-top: 1px solid #eee;
+            font-size: 0.8rem;
+            color: #888;
+            text-align: center;
+        }
+        
+        .sidebar.collapsed .sidebar-footer {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        /* Hide normal logo text when collapsed */
+.sidebar.collapsed .floating {
+    display: none;
+}
+
         /* Main Content */
         .main-content {
-            margin-left: 250px;
+            margin-left: var(--sidebar-width);
             padding: 25px;
-            transition: margin-left 0.3s ease;
+            transition: margin-left var(--transition-speed);
         }
         
-        /* Section Header */
-        .section-header {
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--primary);
-        }
-        
-        .section-header h2 {
-            color: var(--primary);
-            font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .section-header h2 i {
-            margin-right: 10px;
+        .main-content.collapsed {
+            margin-left: var(--sidebar-collapsed-width);
         }
         
         /* Guideline Cards */
@@ -265,31 +390,98 @@
         }
         
         /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            text-align: center;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            font-size: 0.95rem;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary);
-            transform: translateY(-2px);
-        }
+       .btn {
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+    font-size: 0.95rem;
+}
+
+.btn i {
+    color: white; /* ensure icons stay visible */
+}
+.btn .btn-primary, .btn-primary:visited    {
+    color: white; /* ensure links inside buttons stay visible */
+}
+.btn-primary {
+    background-color: var(--primary);
+}
+
+.btn-primary:hover {
+    color: white;
+}
+
         
         /* Responsive Styles */
         @media (max-width: 768px) {
+ .menu-toggle {
+                display: block;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+                width: 80%;
+                max-width: 300px;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .main-content.collapsed {
+                margin-left: 0;
+            }
+            
+            .material-header {
+                flex-direction: column;
+            }
+            
+            .material-meta {
+                margin-top: 10px;
+                flex-wrap: wrap;
+            }
+            
+            
+            .tab-navigation {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            /* Overlay when sidebar is open */
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 998;
+            }
+            
+            .overlay.active {
+                display: block;
+            }
+            
+            /* Hide collapse toggle on mobile */
+            .collapse-toggle {
+                display: none;
+            }
+
+
+
             .menu-toggle {
                 display: block;
             }
@@ -352,7 +544,48 @@
             .section-header h2 {
                 font-size: 1.5rem;
             }
+            .group-indicator {
+                font-size: 0.8rem;
+            }
+            
+            .top-bar {
+                padding: 10px 15px;
+            }
+            
+            .group-indicator {
+                font-size: 0.9rem;
+            }
+            
+            .right-sectio
+            n a {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            
+            .material-card {
+                padding: 15px;
+            }
+            
+            .material-title {
+                font-size: 1.2rem;
+            }
+            
+            .material-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
+        @media (max-width: 992px) {
+            .material-content {
+                flex-direction: column;
+            }
+            
+            .material-thumbnail {
+                align-self: flex-start;
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -387,20 +620,27 @@
         <div class="logo-container">
             <img src="/STEAMtopia/logo.png" alt="STEAMtopia MED Logo" class="floating">
             <h2 class="logo">STEAMtopia MED</h2>
+            <div class="collapse-toggle" id="collapseToggle">
+                <i class="fas fa-chevron-left"></i>
+            </div>
         </div>
         
         <ul class="sidebar-menu">
-            <li><a href="/STEAMtopia/home1eng.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="/STEAMtopia/grp1eng/LS1eng.html"><i class="fas fa-video"></i> Live Sessions</a></li>
-            <li><a href="/STEAMtopia/grp1eng/teacher1eng.html"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
-            <li><a href="/STEAMtopia/grp1eng/MA1eng.html"><i class="fas fa-heartbeat"></i> Medical Adventures</a></li>
-            <li><a href="/STEAMtopia/grp1eng/SL1eng.html"><i class="fas fa-flask"></i> Science Lab</a></li>
-            <li><a href="/STEAMtopia/grp1eng/TP1eng.html"><i class="fas fa-robot"></i> Tech Playground</a></li>
-            <li><a href="/STEAMtopia/grp1eng/CC1eng.html"><i class="fas fa-paint-brush"></i> Creative Corner</a></li>
-            <li><a href="/STEAMtopia/grp1eng/MG1eng.html"><i class="fas fa-calculator"></i> Math Games</a></li>
-            <li><a href="/STEAMtopia/grp1eng/G1eng.html" class="active"><i class="fas fa-cog"></i> Guidelines</a></li>
-            <li><a href="/STEAMtopia/grp1eng/SH1eng.html"><i class="fas fa-hand-holding-heart"></i> Support & Help</a></li>
+            <li><a href="/STEAMtopia/home1eng.html"><i class="fas fa-home"></i><span> Home</span></a></li>
+            <li><a href="/STEAMtopia/grp1eng/LS1eng.html"><i class="fas fa-video"></i> <span>Live Sessions</span></a></li>
+            <li><a href="/STEAMtopia/grp1eng/teacher1eng.html"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span></a></li>
+            <li><a href="/STEAMtopia/grp1eng/MA1eng.html"><i class="fas fa-heartbeat"></i> <span>Medical Adventures</span></a></li>
+            <li><a href="/STEAMtopia/grp1eng/SL1eng.html"><i class="fas fa-flask"></i><span> Science Lab</span></a></li>
+            <li><a href="/STEAMtopia/grp1eng/TP1eng.html"><i class="fas fa-robot"></i><span> Tech Playground</span></a></li>
+            <li><a href="/STEAMtopia/grp1eng/CC1eng.html"><i class="fas fa-paint-brush"></i><span> Creative Corner</span></a></li>
+            <li><a href="/STEAMtopia/grp1eng/MG1eng.html"><i class="fas fa-calculator"></i><span> Math Games</span></a></li>
+            <li><a href="/STEAMtopia/grp1eng/G1eng.html" class="active"><i class="fas fa-cog"></i><span> Guidelines</span></a></li>
+            <li><a href="/STEAMtopia/grp1eng/SH1eng.html"><i class="fas fa-hand-holding-heart"></i><span> Support & Help</span></a></li>
         </ul>
+        <!--add this one-->
+        <div class="sidebar-footer">
+            <p>STEAMtopia MED &copy; 2025</p>
+        </div>
     </aside>
 
     <!-- Main Content -->
@@ -500,30 +740,118 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Hamburger menu functionality
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            // Tab functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.dataset.tab;
+
+                    // Deactivate everything
+                    tabBtns.forEach((b) => b.classList.remove('active'));
+                    tabContents.forEach((c) => c.classList.remove('active'));
+
+                    // Activate clicked button and matching content
+                    btn.classList.add('active');
+                    const target = document.getElementById(tabId);
+                    if (target) target.classList.add('active');
+                });
+            });
+
+            // Sidebar toggle
             const menuToggle = document.querySelector('.menu-toggle');
-            const sidebar = document.getElementById('sidebar');
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
             const overlay = document.getElementById('overlay');
+            const collapseToggle = document.getElementById('collapseToggle');
             
-            if (hamburgerMenu && sidebar && overlay) {
-                hamburgerMenu.addEventListener('click', function() {
-                    sidebar.classList.toggle('active');
-                    overlay.classList.toggle('active');
-                });
-                
-                overlay.addEventListener('click', function() {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
-                });
+            // Check if sidebar state is saved in localStorage
+            const isSidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (isSidebarCollapsed) {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('collapsed');
+                if (collapseToggle) {
+                    collapseToggle.querySelector('i').classList.remove('fa-chevron-left');
+                    collapseToggle.querySelector('i').classList.add('fa-chevron-right');
+                }
             }
             
             if (menuToggle && sidebar && overlay) {
                 menuToggle.addEventListener('click', function() {
                     sidebar.classList.toggle('active');
                     overlay.classList.toggle('active');
+                    menuToggle.classList.toggle('rotated');
+                });
+                
+                overlay.addEventListener('click', function() {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuToggle.classList.remove('rotated');
                 });
             }
+            
+            // Sidebar collapse toggle
+            if (collapseToggle && sidebar && mainContent) {
+                collapseToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('collapsed');
+                    mainContent.classList.toggle('collapsed');
+                    
+                    // Change icon direction
+                    const icon = collapseToggle.querySelector('i');
+                    if (sidebar.classList.contains('collapsed')) {
+                        icon.classList.remove('fa-chevron-left');
+                        icon.classList.add('fa-chevron-right');
+                        localStorage.setItem('sidebarCollapsed', 'true');
+                    } else {
+                        icon.classList.remove('fa-chevron-right');
+                        icon.classList.add('fa-chevron-left');
+                        localStorage.setItem('sidebarCollapsed', 'false');
+                    }
+                });
+            }
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 768 && 
+                    sidebar.classList.contains('active') && 
+                    !sidebar.contains(event.target) && 
+                    !menuToggle.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuToggle.classList.remove('rotated');
+                }
+            });
+            
+            // Close sidebar when a menu item is clicked on mobile
+            const menuItems = document.querySelectorAll('.sidebar-menu a');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                        menuToggle.classList.remove('rotated');
+                    }
+                });
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(event) {
+                // Ctrl+B or Cmd+B to toggle sidebar
+                if ((event.ctrlKey || event.metaKey) && event.key === 'b') {
+                    event.preventDefault();
+                    if (window.innerWidth > 768) {
+                        collapseToggle.click();
+                    }
+                }
+                
+                // Escape key to close sidebar on mobile
+                if (event.key === 'Escape' && window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuToggle.classList.remove('rotated');
+                }
+            });
             
             // External links open in new tab
             document.querySelectorAll('a[href^="http"]').forEach(link => {
@@ -535,4 +863,3 @@
     </script>
 </body>
 </html>
-
