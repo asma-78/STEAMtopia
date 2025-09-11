@@ -6,8 +6,9 @@
     <title>Guidelines - STEAMtopia MED</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-       
-       /* Global Styles */
+    
+        
+        /* Global Styles */
         :root {
             --primary: #2c6aa0;
             --secondary: #4a8cbb;
@@ -139,7 +140,7 @@
         }
         
         .sidebar.collapsed .logo-container {
-            padding: 35px 10px;
+            padding: 15px 10px;
         }
         
         .logo-container img {
@@ -149,9 +150,10 @@
             transition: max-width var(--transition-speed);
         }
         
-        .sidebar.collapsed .logo-container {
-            max-width: 60px;
-            margin-bottom: 10px;
+        .sidebar.collapsed .logo-container img {
+
+display: none;
+
         }
         
         .logo {
@@ -161,12 +163,11 @@
             transition: opacity var(--transition-speed);
         }
         
-        .sidebar.collapsed .logo {
-            visibility: hidden;
+        .sidebar.collapsed .logo {  visibility: hidden;
+
+            
         }
-        .sidebar.collapsed .sidebar-menu span {
-    display: none; /* hides the text when collapsed */
-}
+        
         .collapse-toggle {
             position: absolute;
             top: 10px;
@@ -288,11 +289,7 @@
             padding: 0;
             overflow: hidden;
         }
-        /* Hide normal logo text when collapsed */
-.sidebar.collapsed .floating {
-    display: none;
-}
-
+        
         /* Main Content */
         .main-content {
             margin-left: var(--sidebar-width);
@@ -414,7 +411,7 @@
     background-color: var(--primary);
 }
 
-.btn-primary:hover {
+.btn-primary:hover, .btn-primary:focus {
     color: white;
 }
 
@@ -730,7 +727,7 @@
                         <li>Email: <a href="mailto:steamtopia.team@gmail.com">steamtopia.team@gmail.com</a></li>
                         <li>Response time: Within 24 business hours</li>
                     </ul>
-                    <a href="https://docs.google.com/document/d/1QC3SSgq3skh-4UaySyluFjFe-NUSXwl5Dy7V59Sis2A/edit?usp=sharing" class="btn btn-primary" target="_blank">
+                    <a href="https://docs.google.com/document/d/1QC3SSgq3skh-4UaySyluFjFe-NUSXwl5Dy7V59Sis2A/edit?usp=sharing" class="btn btn-primary" target="_blank" style="color: white;">
                         <i class="fas fa-file-alt"></i> View Full Guidelines Document
                     </a>
                 </div>
