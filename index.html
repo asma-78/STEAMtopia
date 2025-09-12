@@ -178,6 +178,7 @@
         display: inline-flex;
         align-items: center;
         gap: 5px;
+        margin: 0 10px;
       }
 
       .login-footer a:hover {
@@ -225,7 +226,7 @@
         }
       }
 
-      /* Modal styles for password recovery */
+      /* Modal styles for password recovery and sign up */
       .modal {
         display: none;
         position: fixed;
@@ -403,6 +404,9 @@
       </div>
 
       <div class="login-footer">
+        <a href="#" id="signUpLink"
+          ><i class="fas fa-user-plus"></i> Sign Up</a
+        >
         <a href="#" id="forgotPasswordLink"
           ><i class="fas fa-question-circle"></i> Forgot password?</a
         >
@@ -433,6 +437,38 @@
             class="modal-btn"
           >
             <i class="fas fa-external-link-alt"></i> Open The Form
+          </a>
+          <p style="margin-top: 15px; font-size: 13px">
+            <i class="fas fa-info-circle"></i> You'll be redirected to a secure
+            Google Form
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal" id="signUpModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">
+            <i class="fas fa-user-plus"></i> Create an Account
+          </h3>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>
+            To create a new account, please fill out our registration form.
+          </p>
+          <p>
+            Once submitted, our team will review your application and provide
+            you with login credentials.
+          </p>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdEXAMPLE_SIGNUP_FORM_LINK"
+            target="_blank"
+            class="modal-btn"
+          >
+            <i class="fas fa-external-link-alt"></i> Open Registration Form
           </a>
           <p style="margin-top: 15px; font-size: 13px">
             <i class="fas fa-info-circle"></i> You'll be redirected to a secure
@@ -536,11 +572,13 @@
 
       // DOM elements
       const loginForm = document.getElementById("loginForm");
+      const signUpLink = document.getElementById("signUpLink");
       const forgotPasswordLink = document.getElementById("forgotPasswordLink");
       const passwordRecoveryModal = document.getElementById(
         "passwordRecoveryModal"
       );
-      const closeModal = document.querySelector(".close-modal");
+      const signUpModal = document.getElementById("signUpModal");
+      const closeModals = document.querySelectorAll(".close-modal");
 
       // Form submission handler
       loginForm.addEventListener("submit", function (e) {
@@ -594,20 +632,32 @@
         }, 1500);
       });
 
-      // Password recovery modal handlers
+      // Modal handlers
+      signUpLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        signUpModal.style.display = "flex";
+      });
+
       forgotPasswordLink.addEventListener("click", function (e) {
         e.preventDefault();
         passwordRecoveryModal.style.display = "flex";
       });
 
-      closeModal.addEventListener("click", function () {
-        passwordRecoveryModal.style.display = "none";
+      // Close modal handlers
+      closeModals.forEach(closeBtn => {
+        closeBtn.addEventListener("click", function () {
+          passwordRecoveryModal.style.display = "none";
+          signUpModal.style.display = "none";
+        });
       });
 
       // Close modal when clicking outside
       window.addEventListener("click", function (e) {
         if (e.target === passwordRecoveryModal) {
           passwordRecoveryModal.style.display = "none";
+        }
+        if (e.target === signUpModal) {
+          signUpModal.style.display = "none";
         }
       });
 
@@ -619,4 +669,3 @@
     </script>
   </body>
 </html>
-
