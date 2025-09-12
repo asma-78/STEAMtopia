@@ -8,7 +8,7 @@
     <style>
     
         
-        /* Global Styles */
+          /* Global Styles */
         :root {
             --primary: #2c6aa0;
             --secondary: #4a8cbb;
@@ -151,8 +151,9 @@
         }
         
         .sidebar.collapsed .logo-container img {
-            max-width: 40px;
-            margin-bottom: 5px;
+
+display: none;
+
         }
         
         .logo {
@@ -162,10 +163,9 @@
             transition: opacity var(--transition-speed);
         }
         
-        .sidebar.collapsed .logo {
-            opacity: 0;
-            height: 0;
-            margin: 0;
+        .sidebar.collapsed .logo {  visibility: hidden;
+
+            
         }
         
         .collapse-toggle {
@@ -300,6 +300,7 @@
         .main-content.collapsed {
             margin-left: var(--sidebar-collapsed-width);
         }
+
         
         /* Tab Navigation */
         .tab-navigation {
