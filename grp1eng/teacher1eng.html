@@ -307,7 +307,9 @@ display: none;
             margin-bottom: 25px;
             border-bottom: 1px solid #e0e0e0;
         }
-        
+        .tab-content.active {
+            display: block;
+        }
         /* Teachers Banner */
         .teachers-banner {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -663,6 +665,11 @@ display: none;
                 justify-content: center;
             }
         }
+        @media (max-width: 768px) {
+  .collapse-toggle {
+    display: none;
+  }
+}
     </style>
 </head>
 <body>
@@ -678,7 +685,7 @@ display: none;
     
     <!-- Top Bar -->
     <header class="top-bar">
-        <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+        <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
         <div class="group-indicator">
             <i class="fas fa-users"></i> Mini Explorers (6-8 years)
         </div>
@@ -704,10 +711,22 @@ display: none;
         </div>
         
         <ul class="sidebar-menu">
-            <li><a href="/STEAMtopia/home1eng.html"><i class="fas fa-home"></i> <span>Home </span></a></li>
-            <li><a href="/STEAMtopia/grp1eng/LS1eng.html"><i class="fas fa-video"></i> <span>Live Sessions </span></a></li>
-            <li><a href="/STEAMtopia/grp1eng/teacher1eng.html" class="active"><i class="fas fa-chalkboard-teacher"></i> <span>Teachers</span></a></li>
-            <li><a href="/STEAMtopia/grp1eng/MA1eng.html"><i class="fas fa-heartbeat"></i> <span>Medical Adventures</span></a></li>
+            <li><a href="/STEAMtopia/home1eng.html"><i class="fas fa-home"></i> <span>Home </span></a></li><div class="tooltip">Home</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/LS1eng.html"><i class="fas fa-video"></i> <span>Live Sessions </span></a></li><div class="tooltip">Live Sessions</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/teacher1eng.html" class="active"><i class="fas fa-chalkboard-teacher"></i> <span>Teachers</span></a></li><div class="tooltip">Teachers</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/MA1eng.html"><i class="fas fa-heartbeat"></i> <span>Medical Adventures</span></a></li><div class="tooltip">Medical Adventures</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/SL1eng.html"><i class="fas fa-flask"></i> <span>Science Lab</span></a></li><div class="tooltip">Science Lab</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/TP1eng.html"><i class="fas fa-robot"></i> <span>Tech Playground</span></a></li><div class="tooltip">Tech Playground</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/CC1eng.html"><i class="fas fa-paint-brush"></i> <span>Creative Corner</span></a></li><div class="tooltip">Creative Corner</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/MG1eng.html"><i class="fas fa-calculator"></i> <span>Math Games</span></a></li><div class="tooltip">Math Games</div></a>
+</li>
             <li><a href="/STEAMtopia/grp1eng/SL1eng.html"><i class="fas fa-flask"></i> <span>Science Lab</span></a></li>
             <li><a href="/STEAMtopia/grp1eng/TP1eng.html"><i class="fas fa-robot"></i> <span>Tech Playground</span></a></li>
             <li><a href="/STEAMtopia/grp1eng/CC1eng.html"><i class="fas fa-paint-brush"></i> <span>Creative Corner</span></a></li>
@@ -900,7 +919,8 @@ display: none;
             });
 
             // Sidebar toggle
-            const menuToggle = document.querySelector('.menu-toggle');
+            const menuToggle = document.getElementById('menuToggle');
+
             const sidebar = document.querySelector('.sidebar');
             const mainContent = document.querySelector('.main-content');
             const overlay = document.getElementById('overlay');
