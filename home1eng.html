@@ -11,7 +11,7 @@
    
 </head>
 <body>
-    <!-- Hamburger Menu -->
+     <!-- Hamburger Menu -->
     <div class="hamburger-menu" id="hamburgerMenu">
         <span></span>
         <span></span>
@@ -23,39 +23,55 @@
     
     <!-- Top Bar -->
     <header class="top-bar">
+        <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
         <div class="group-indicator">
             <i class="fas fa-users"></i> Mini Explorers (6-8 years)
         </div>
         
         <div class="right-section">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/steam.topia/"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
             <a href="#"><i class="fab fa-medium-m"></i></a>
             <a href="mailto:steamtopia.team@gmail.com"><i class="fas fa-envelope"></i></a>
         </div>
     </header>
-
+    <!-- Sidebar -->
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="logo-container">
             <img src="/STEAMtopia/logo.png" alt="STEAMtopia MED Logo" class="floating">
             <h2 class="logo">STEAMtopia MED</h2>
+            <!--add this one-->
+            <div class="collapse-toggle" id="collapseToggle">
+                <i class="fas fa-chevron-left"></i>
+            </div>
         </div>
-        
+
         <ul class="sidebar-menu">
-            <li><a href="/STEAMtopia/home1eng.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="/STEAMtopia/grp1eng/LS1eng.html"><i class="fas fa-video"></i> Live Sessions</a></li>
-            <li><a href="/STEAMtopia/grp1eng/teacher1eng.html"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
-            <li><a href="/STEAMtopia/grp1eng/MA1eng.html"><i class="fas fa-heartbeat"></i> Medical Adventures</a></li>
-            <li><a href="/STEAMtopia/grp1eng/SL1eng.html"><i class="fas fa-flask"></i> Science Lab</a></li>
-            <li><a href="/STEAMtopia/grp1eng/TP1eng.html"><i class="fas fa-robot"></i> Tech Playground</a></li>
-            <li><a href="/STEAMtopia/grp1eng/CC1eng.html"><i class="fas fa-paint-brush"></i> Creative Corner</a></li>
-            <li><a href="/STEAMtopia/grp1eng/MG1eng.html"><i class="fas fa-calculator"></i> Math Games</a></li>
-            <li><a href="/STEAMtopia/grp1eng/G1eng.html"><i class="fas fa-cog"></i> Guidelines</a></li>
-            <li><a href="/STEAMtopia/grp1eng/SH1eng.html"><i class="fas fa-hand-holding-heart"></i> Support & Help</a></li>
+            <li><a href="/STEAMtopia/home1eng.html"><i class="fas fa-home"></i> <span>Home </span></a></li><div class="tooltip">Home</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/LS1eng.html" class active><i class="fas fa-video"></i> <span>Live Sessions </span></a></li><div class="tooltip">Live Sessions</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/teacher1eng.html"><i class="fas fa-chalkboard-teacher"></i> <span>Teachers</span></a></li><div class="tooltip">Teachers</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/MA1eng.html"><i class="fas fa-heartbeat"></i> <span>Medical Adventures</span></a></li><div class="tooltip">Medical Adventures</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/SL1eng.html"><i class="fas fa-flask"></i> <span>Science Lab</span></a></li><div class="tooltip">Science Lab</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/TP1eng.html"><i class="fas fa-robot"></i> <span>Tech Playground</span></a></li><div class="tooltip">Tech Playground</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/CC1eng.html"><i class="fas fa-paint-brush"></i> <span>Creative Corner</span></a></li><div class="tooltip">Creative Corner</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/MG1eng.html"><i class="fas fa-calculator"></i> <span>Math Games</span></a></li><div class="tooltip">Math Games</div></a>
+</li>
+            <li><a href="/STEAMtopia/grp1eng/G1eng.html"><i class="fas fa-cog"></i> <span>Guidelines</span></a></li>
+            <li><a href="/STEAMtopia/grp1eng/SH1eng.html"><i class="fas fa-hand-holding-heart"></i> <span>Support & Help</span></a></li>
         </ul>
-    </aside>
+        <!--add this one-->
+        <div class="sidebar-footer">
+            <p>STEAMtopia MED &copy; 2025</p>
+        </div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -198,27 +214,126 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hamburger menu functionality
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
-            const sidebar = document.getElementById('sidebar');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tab functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.dataset.tab;
+
+                    // Deactivate everything
+                    tabBtns.forEach((b) => b.classList.remove('active'));
+                    tabContents.forEach((c) => c.classList.remove('active'));
+
+                    // Activate clicked button and matching content
+                    btn.classList.add('active');
+                    const target = document.getElementById(tabId);
+                    if (target) target.classList.add('active');
+                });
+            });
+
+            // Sidebar toggle
+            const menuToggle = document.getElementById('menuToggle');
+
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
             const overlay = document.getElementById('overlay');
+            const collapseToggle = document.getElementById('collapseToggle');
             
-            if (hamburgerMenu && sidebar && overlay) {
-                hamburgerMenu.addEventListener('click', function() {
+            // Check if sidebar state is saved in localStorage
+            const isSidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (isSidebarCollapsed) {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('collapsed');
+                if (collapseToggle) {
+                    collapseToggle.querySelector('i').classList.remove('fa-chevron-left');
+                    collapseToggle.querySelector('i').classList.add('fa-chevron-right');
+                }
+            }
+            
+            if (menuToggle && sidebar && overlay) {
+                menuToggle.addEventListener('click', function() {
                     sidebar.classList.toggle('active');
                     overlay.classList.toggle('active');
+                    menuToggle.classList.toggle('rotated');
                 });
                 
                 overlay.addEventListener('click', function() {
                     sidebar.classList.remove('active');
                     overlay.classList.remove('active');
+                    menuToggle.classList.remove('rotated');
                 });
             }
-        });
+            
+            // Sidebar collapse toggle
+            if (collapseToggle && sidebar && mainContent) {
+                collapseToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('collapsed');
+                    mainContent.classList.toggle('collapsed');
+                    
+                    // Change icon direction
+                    const icon = collapseToggle.querySelector('i');
+                    if (sidebar.classList.contains('collapsed')) {
+                        icon.classList.remove('fa-chevron-left');
+                        icon.classList.add('fa-chevron-right');
+                        localStorage.setItem('sidebarCollapsed', 'true');
+                    } else {
+                        icon.classList.remove('fa-chevron-right');
+                        icon.classList.add('fa-chevron-left');
+                        localStorage.setItem('sidebarCollapsed', 'false');
+                    }
+                });
+            }
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 768 && 
+                    sidebar.classList.contains('active') && 
+                    !sidebar.contains(event.target) && 
+                    !menuToggle.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuToggle.classList.remove('rotated');
+                }
+            });
+            
+            // Close sidebar when a menu item is clicked on mobile
+            const menuItems = document.querySelectorAll('.sidebar-menu a');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                        menuToggle.classList.remove('rotated');
+                    }
+                });
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(event) {
+                // Ctrl+B or Cmd+B to toggle sidebar
+                if ((event.ctrlKey || event.metaKey) && event.key === 'b') {
+                    event.preventDefault();
+                    if (window.innerWidth > 768) {
+                        collapseToggle.click();
+                    }
+                }
+                
+                // Escape key to close sidebar on mobile
+                if (event.key === 'Escape' && window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuToggle.classList.remove('rotated');
+                }
+            });
+        }
+            );
     </script>
 </body>
 </html>
+
 
 
 
