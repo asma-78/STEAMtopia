@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Message from STEAMtopia MED - Our Evolution</title>
+    <title>Creative Corner - A Message from STEAMtopia MED</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
           /* Global Styles */
@@ -13,6 +13,7 @@
             --accent: #5fa8d3;
             --light: #f0f7ff;
             --dark: #1e3a5f;
+            --creative: #9c27b0; /* Creative purple */
             --success: #4CAF50;
             --warning: #FFC107;
             --info: #17a2b8;
@@ -38,7 +39,7 @@
         
         /* Header Styles */
         .top-bar {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--creative) 0%, var(--primary) 100%);
             color: white;
             padding: 10px 20px;
             display: flex;
@@ -130,7 +131,7 @@
         .logo-container {
             padding: 20px;
             text-align: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--creative) 0%, var(--primary) 100%);
             color: white;
             border-bottom: 1px solid rgba(255,255,255,0.2);
             position: relative;
@@ -211,16 +212,16 @@
         }
         
         .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: #e9f2ff;
-            border-left-color: var(--primary);
-            color: var(--primary);
+            background-color: #f3e5f5;
+            border-left-color: var(--creative);
+            color: var(--creative);
         }
         
         .sidebar-menu i {
             margin-right: 12px;
             width: 20px;
             text-align: center;
-            color: var(--primary);
+            color: var(--creative);
             transition: margin var(--transition-speed);
             flex-shrink: 0;
         }
@@ -296,175 +297,264 @@
             margin-left: var(--sidebar-collapsed-width);
         }
         
-        /* New Message Styles */
-        .message-banner {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        /* Creative Banner */
+        .creative-banner {
+            background: linear-gradient(135deg, var(--creative) 0%, var(--accent) 100%);
             color: white;
             border-radius: 12px;
             padding: 40px;
             margin-bottom: 30px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
         }
         
-        .message-banner h1 {
-            font-size: 2.5rem;
+        .creative-banner h1 {
+            font-size: 2.8rem;
             margin-bottom: 20px;
             font-weight: 700;
         }
         
-        .message-banner .subtitle {
-            font-size: 1.3rem;
+        .creative-banner .subtitle {
+            font-size: 1.4rem;
             opacity: 0.9;
             margin-bottom: 30px;
         }
         
-        .message-banner i {
-            font-size: 3rem;
+        .banner-icons {
+            font-size: 4rem;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
         }
         
-        /* Message Cards */
-        .message-card {
+        .banner-icons i {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .banner-icons i:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .banner-icons i:nth-child(3) {
+            animation-delay: 1s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Creative Cards */
+        .creative-card {
             background: white;
             border-radius: 12px;
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-left: 6px solid var(--primary);
-        }
-        
-        .message-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-left: 6px solid var(--creative);
             transition: all 0.3s;
         }
         
-        .message-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
+        .creative-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 10px 25px rgba(156, 39, 176, 0.1);
         }
         
-        .message-icon {
-            width: 60px;
-            height: 60px;
-            background: #e9f2ff;
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .creative-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--creative) 0%, #e1bee7 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 20px;
-            color: var(--primary);
+            margin-right: 25px;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 4px 12px rgba(156, 39, 176, 0.2);
+        }
+        
+        .card-title {
+            color: var(--creative);
             font-size: 1.8rem;
-        }
-        
-        .message-title {
-            color: var(--primary);
-            font-size: 1.5rem;
             margin: 0;
+            font-weight: 600;
         }
         
-        .message-content {
+        .card-content {
             color: #555;
             line-height: 1.8;
             font-size: 1.1rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
-        .highlight {
-            background: linear-gradient(120deg, #e9f2ff 0%, #e9f2ff 100%);
-            padding: 3px 8px;
-            border-radius: 4px;
+        .highlight-creative {
+            background: linear-gradient(120deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 3px 10px;
+            border-radius: 20px;
             font-weight: 600;
-            color: var(--primary);
+            color: var(--creative);
         }
         
-        /* Call to Action */
-        .cta-section {
-            text-align: center;
-            margin: 40px 0;
-            padding: 40px;
+        /* Project Gallery */
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .project-card {
             background: white;
             border-radius: 12px;
+            padding: 20px;
+            text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--creative);
+            transition: all 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(156, 39, 176, 0.15);
+        }
+        
+        .project-icon {
+            font-size: 2.5rem;
+            color: var(--creative);
+            margin-bottom: 15px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .project-card h3 {
+            color: var(--creative);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .project-card p {
+            color: #666;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        /* Creative Call to Action */
+        .creative-cta {
+            text-align: center;
+            margin: 50px 0;
+            padding: 50px;
+            background: linear-gradient(135deg, #f3e5f5 0%, #e8f4f8 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(156, 39, 176, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .creative-cta:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--creative), var(--primary));
         }
         
         .cta-title {
-            color: var(--primary);
-            font-size: 2rem;
+            color: var(--creative);
+            font-size: 2.2rem;
             margin-bottom: 20px;
+            font-weight: 700;
         }
         
         .cta-description {
             font-size: 1.2rem;
             color: #666;
-            max-width: 700px;
-            margin: 0 auto 30px;
+            max-width: 800px;
+            margin: 0 auto 35px;
+            line-height: 1.7;
         }
         
         .btn {
             display: inline-block;
-            padding: 12px 30px;
-            border-radius: 6px;
+            padding: 14px 35px;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             text-align: center;
             transition: all 0.3s;
             cursor: pointer;
             border: none;
-            font-size: 1rem;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
         }
         
-        .btn-primary {
-            background-color: var(--primary);
+        .btn-creative {
+            background: linear-gradient(135deg, var(--creative) 0%, #7b1fa2 100%);
             color: white;
+            box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
         }
         
-        .btn-primary:hover {
-            background-color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .btn-creative:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(156, 39, 176, 0.4);
         }
         
-        .btn-large {
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            margin: 10px;
+        .btn-creative-large {
+            padding: 18px 45px;
+            font-size: 1.2rem;
+            margin: 10px 15px;
         }
         
-        /* Future Plans */
-        .plans-grid {
+        /* Creative Grid */
+        .creative-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
-            margin: 30px 0;
+            margin: 40px 0;
         }
         
-        .plan-card {
+        .grid-item {
             background: white;
             border-radius: 12px;
             padding: 25px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--accent);
+            border: 2px solid #e1bee7;
+            transition: all 0.3s;
         }
         
-        .plan-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
+        .grid-item:hover {
+            border-color: var(--creative);
+            transform: translateY(-5px);
+        }
+        
+        .grid-icon {
+            font-size: 3rem;
+            color: var(--creative);
             margin-bottom: 20px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .plan-card h3 {
-            color: var(--primary);
+        .grid-item h3 {
+            color: var(--creative);
             margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        
-        .plan-card p {
-            color: #666;
-            line-height: 1.6;
+            font-size: 1.4rem;
         }
         
         /* Responsive Styles */
@@ -492,26 +582,39 @@
                 margin-left: 0;
             }
             
-            .message-banner {
+            .creative-banner {
                 padding: 30px 20px;
             }
             
-            .message-banner h1 {
-                font-size: 2rem;
+            .creative-banner h1 {
+                font-size: 2.2rem;
             }
             
-            .message-card {
+            .banner-icons {
+                font-size: 3rem;
+                gap: 15px;
+            }
+            
+            .creative-card {
                 padding: 20px;
             }
             
-            .message-header {
+            .card-header {
                 flex-direction: column;
                 text-align: center;
             }
             
-            .message-icon {
+            .creative-icon {
                 margin-right: 0;
                 margin-bottom: 15px;
+            }
+            
+            .creative-cta {
+                padding: 30px 20px;
+            }
+            
+            .cta-title {
+                font-size: 1.8rem;
             }
             
             /* Overlay when sidebar is open */
@@ -555,22 +658,22 @@
                 font-size: 0.9rem;
             }
             
-            .message-card {
-                padding: 15px;
-            }
-            
-            .message-banner h1 {
+            .creative-banner h1 {
                 font-size: 1.8rem;
             }
             
-            .plans-grid {
+            .creative-grid, .project-gallery {
                 grid-template-columns: 1fr;
             }
             
-            .btn-large {
+            .btn-creative-large {
                 display: block;
                 width: 100%;
                 margin: 10px 0;
+            }
+            
+            .creative-cta {
+                padding: 25px 15px;
             }
         }
     </style>
@@ -590,7 +693,7 @@
     <header class="top-bar">
         <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
         <div class="group-indicator">
-            <i class="fas fa-heart"></i> A Message to Our Community
+            <i class="fas fa-paint-brush"></i> Creative Corner - A Special Message
         </div>
         
         <div class="right-section">
@@ -632,131 +735,182 @@
 
     <!-- Main Content -->
     <main class="main-content" id="mainContent">
-        <!-- Main Message Banner -->
-        <div class="message-banner">
-            <i class="fas fa-heart-circle-plus"></i>
-            <h1>Thank You for Being Part of Our Journey</h1>
-            <p class="subtitle">Our mission continues, but our impact is expanding</p>
+        <!-- Creative Banner -->
+        <div class="creative-banner">
+            <div class="banner-icons">
+                <i class="fas fa-palette"></i>
+                <i class="fas fa-lightbulb"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+            <h1>To All Our Creative Young Innovators</h1>
+            <p class="subtitle">Your Creativity Was Just the Beginning...</p>
         </div>
 
-        <!-- Message from the Team -->
-        <div class="message-card">
-            <div class="message-header">
-                <div class="message-icon">
-                    <i class="fas fa-handshake"></i>
+        <!-- Appreciation for Creativity -->
+        <div class="creative-card">
+            <div class="card-header">
+                <div class="creative-icon">
+                    <i class="fas fa-palette"></i>
                 </div>
-                <h2 class="message-title">A Heartfelt Thank You</h2>
+                <h2 class="card-title">Your Summer Camp Masterpieces Live On</h2>
             </div>
-            <div class="message-content">
-                <p>Dear Students, Parents, and Teachers,</p>
-                <p>We want to start by saying <span class="highlight">thank you</span> from the bottom of our hearts. Thank you for believing in our mission, for participating in our programs, and for helping us make health education accessible and fun.</p>
-                <p>Every smile we've seen, every curious question asked, every "aha!" moment has confirmed why we started STEAMtopia MED. You have been the living proof that <span class="highlight">education can be both meaningful and joyful</span>.</p>
-            </div>
-        </div>
-
-        <!-- Evolution Message -->
-        <div class="message-card">
-            <div class="message-header">
-                <div class="message-icon">
-                    <i class="fas fa-seedling"></i>
-                </div>
-                <h2 class="message-title">Growing Together: Our Evolution</h2>
-            </div>
-            <div class="message-content">
-                <p>After listening to our community—talking with each student, teacher, and parent—we've realized something important: the world needs more than just health education. It needs <span class="highlight">mental health champions</span>.</p>
-                <p>Our core mission remains the same: <span class="highlight">"making health education accessible and fun for all."</span> But now, we're expanding how we fulfill that mission.</p>
-                <p>We're evolving from STEAMtopia MED into a <span class="highlight">youth-led mental health leadership academy</span>. Why? Because while one project can help individuals, <span class="highlight">a movement of youth leaders can transform communities worldwide</span>.</p>
+            <div class="card-content">
+                <p>Remember those amazing <span class="highlight-creative">capstone projects</span> you created during our summer camp? The 3D heart models that beat with imagination, the neuron sculptures that sparked with creativity, the DNA art that told your unique story...</p>
+                
+                <p>We witnessed something magical in the Creative Corner. It wasn't just about learning anatomy—it was about <span class="highlight-creative">expressing understanding through art</span>, about making science personal, about using color, shape, and form to make complex ideas beautifully simple.</p>
+                
+                <p>Every stroke of your paintbrush, every carefully crafted model, every creative solution showed us something important: <span class="highlight-creative">creativity is a powerful form of understanding</span>. And now, we're taking that creative energy to a new level.</p>
             </div>
         </div>
 
-        <!-- The Same Mission, Bigger Impact -->
-        <div class="message-card">
-            <div class="message-header">
-                <div class="message-icon">
-                    <i class="fas fa-bullseye"></i>
-                </div>
-                <h2 class="message-title">Our Unchanging Core</h2>
-            </div>
-            <div class="message-content">
-                <p>Let us be clear: <span class="highlight">We are not abandoning our mission. We are amplifying it.</span></p>
-                <p>Our commitment to accessible, engaging health education remains. What's changing is our focus group and methodology:</p>
-                <ul style="padding-left: 20px; margin: 15px 0; color: #555;">
-                    <li><strong>From:</strong> Primarily teaching medical science to children</li>
-                    <li><strong>To:</strong> Empowering teens and pre-teens to become mental health leaders</li>
-                    <li><strong>From:</strong> Providing educational content</li>
-                    <li><strong>To:</strong> Mentoring youth to create their own community projects</li>
-                    <li><strong>From:</strong> Just education</li>
-                    <li><strong>To:</strong> Education + Action + Community Transformation</li>
-                </ul>
-                <p>The heart of STEAMtopia MED—the belief that everyone deserves to understand and care for their health—<span class="highlight">is stronger than ever</span>.</p>
-            </div>
-        </div>
-
-        <!-- Future Plans Grid -->
-        <h2 style="text-align: center; color: var(--primary); margin: 50px 0 30px; font-size: 2rem;">Our Vision for the Future</h2>
-        <div class="plans-grid">
-            <div class="plan-card">
-                <div class="plan-icon">
+        <!-- Connecting Creativity to Mental Health -->
+        <div class="creative-card">
+            <div class="card-header">
+                <div class="creative-icon">
                     <i class="fas fa-brain"></i>
                 </div>
-                <h3>Mental Health Leadership</h3>
-                <p>Training teens to recognize mental health needs, support peers, and create safe spaces in their schools and communities.</p>
+                <h2 class="card-title">From Creative Projects to Creative Solutions</h2>
+            </div>
+            <div class="card-content">
+                <p>The same <span class="highlight-creative">creative thinking</span> that helped you build those amazing projects is exactly what our world needs now to address mental health challenges.</p>
+                
+                <p>Think about it: You learned to <span class="highlight-creative">reimagine the human heart</span> using art supplies. Now imagine using that same creative power to <span class="highlight-creative">reimagine mental health support</span> in your community.</p>
+                
+                <p>Your summer camp projects proved you can <span class="highlight-creative">make the invisible visible</span>—you made neurons, DNA, and blood flow come to life through art. Now, we're inviting you to use that same skill to make mental health conversations visible, approachable, and healing.</p>
+            </div>
+        </div>
+
+        <!-- Project Gallery - Celebrating Past Creativity -->
+        <h2 style="text-align: center; color: var(--creative); margin: 50px 0 30px; font-size: 2.2rem;">
+            <i class="fas fa-star"></i> The Creative Legacy You Built
+        </h2>
+        <div class="project-gallery">
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-heart-circle-plus"></i>
+                </div>
+                <h3>Pulsing Heart Models</h3>
+                <p>Your 3D hearts that taught us how creativity makes learning unforgettable</p>
             </div>
             
-            <div class="plan-card">
-                <div class="plan-icon">
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3>Neuron Networks</h3>
+                <p>The intricate connections you built showed how ideas spark and spread</p>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-dna"></i>
+                </div>
+                <h3>DNA Art Masterpieces</h3>
+                <p>Turning genetic code into personal art—proving science has a creative soul</p>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-lungs"></i>
+                </div>
+                <h3>Breathing Lung Sculptures</h3>
+                <p>Your moving models that made respiration a visible, tangible experience</p>
+            </div>
+        </div>
+
+        <!-- The Creative Evolution -->
+        <div class="creative-card">
+            <div class="card-header">
+                <div class="creative-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h2 class="card-title">Your Creativity Is Growing With Us</h2>
+            </div>
+            <div class="card-content">
+                <p>That <span class="highlight-creative">creative spark</span> we nurtured together in the Creative Corner? It's not disappearing—it's <span class="highlight-creative">evolving</span>.</p>
+                
+                <p>We're taking everything you learned about creative problem-solving, artistic expression, and innovative thinking, and we're applying it to one of the most important challenges of our time: <span class="highlight-creative">youth mental health</span>.</p>
+                
+                <p>Just as you used art to understand the body, we'll now use creativity to <span class="highlight-creative">design mental health solutions</span>, to create safe spaces, to build peer support systems that are as unique and beautiful as your summer camp projects.</p>
+            </div>
+        </div>
+
+        <!-- New Creative Opportunities -->
+        <h2 style="text-align: center; color: var(--creative); margin: 60px 0 30px; font-size: 2.2rem;">
+            <i class="fas fa-paint-brush"></i> Your Next Creative Chapter
+        </h2>
+        <div class="creative-grid">
+            <div class="grid-item">
+                <div class="grid-icon">
                     <i class="fas fa-users-gear"></i>
                 </div>
-                <h3>Project Incubator</h3>
-                <p>Providing mentorship, resources, and support for youth to design and implement their own mental health initiatives.</p>
+                <h3>Creative Community Projects</h3>
+                <p>Design art installations that promote mental health awareness in your school or neighborhood</p>
             </div>
             
-            <div class="plan-card">
-                <div class="plan-icon">
-                    <i class="fas fa-globe-americas"></i>
+            <div class="grid-item">
+                <div class="grid-icon">
+                    <i class="fas fa-comment-heart"></i>
                 </div>
-                <h3>Global Peer Network</h3>
-                <p>Connecting young mental health advocates worldwide to share ideas, resources, and encouragement.</p>
+                <h3>Expressive Communication</h3>
+                <p>Use your creative skills to develop new ways for peers to express and support emotional wellbeing</p>
+            </div>
+            
+            <div class="grid-item">
+                <div class="grid-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Innovative Solutions</h3>
+                <p>Apply your creative thinking to design real mental health initiatives for your community</p>
             </div>
         </div>
 
-        <!-- Call to Action -->
-        <div class="cta-section">
-            <h2 class="cta-title">Join Us in This New Chapter</h2>
+        <!-- Creative Call to Action -->
+        <div class="creative-cta">
+            <h2 class="cta-title">Keep Creating With Us</h2>
             <p class="cta-description">
-                Our mission's value has not diminished—it has multiplied. The same passion that brought you here is now directed toward one of the most urgent needs of our time: youth mental health.
+                Your creativity in the Creative Corner showed us what's possible when young minds approach challenges with imagination and heart. 
+                <br><br>
+                Now, we're inviting you to channel that same creative energy into something even more powerful: <span class="highlight-creative">building a world where mental health is understood, supported, and celebrated</span>.
             </p>
             <p class="cta-description">
-                Whether you're a student who wants to make a difference, a parent who sees the need, or an educator who believes in youth leadership—we invite you to continue this journey with us.
+                <strong>Your creative journey continues</strong>—it's just taking a new, meaningful direction. The same hands that built beautiful medical models can now build beautiful mental health support systems.
             </p>
             <div>
-                <a href="mailto:steamtopia.team@gmail.com" class="btn btn-primary btn-large">
-                    <i class="fas fa-envelope"></i> Email Us to Join
+                <a href="mailto:steamtopia.team@gmail.com?subject=Creative%20Corner%20Alumni%20Joining%20New%20Mission" class="btn btn-creative btn-creative-large">
+                    <i class="fas fa-palette"></i> Continue Your Creative Journey
                 </a>
-                <a href="https://www.instagram.com/steam.topia/" class="btn btn-primary btn-large" target="_blank">
-                    <i class="fab fa-instagram"></i> Follow Our Transition
+                <a href="https://www.instagram.com/steam.topia/" class="btn btn-creative btn-creative-large" target="_blank">
+                    <i class="fab fa-instagram"></i> Share Your Creative Projects
                 </a>
             </div>
-            <p style="margin-top: 30px; color: #666; font-style: italic;">
-                Together, we're not just learning about health—we're creating a healthier world, one youth leader at a time.
+            <p style="margin-top: 35px; color: var(--creative); font-style: italic; font-size: 1.1rem;">
+                "Creativity is intelligence having fun." — Albert Einstein<br>
+                <small>Let's keep having fun while making a real difference</small>
             </p>
         </div>
 
-        <!-- Final Encouragement -->
-        <div class="message-card" style="background: #e9f2ff; border-left-color: var(--accent);">
-            <div class="message-header">
-                <div class="message-icon" style="background: white;">
+        <!-- Final Creative Message -->
+        <div class="creative-card" style="background: linear-gradient(135deg, #f3e5f5 0%, #e8f4f8 100%); border-left-color: #7b1fa2;">
+            <div class="card-header">
+                <div class="creative-icon" style="background: linear-gradient(135deg, #7b1fa2 0%, var(--creative) 100%);">
                     <i class="fas fa-heart-circle-check"></i>
                 </div>
-                <h2 class="message-title">With Gratitude and Hope</h2>
+                <h2 class="card-title">With Endless Creative Possibilities</h2>
             </div>
-            <div class="message-content">
-                <p>To every young mind we've had the privilege to inspire: <span class="highlight">carry that curiosity forward</span>.</p>
-                <p>To every parent who trusted us with their child's education: <span class="highlight">thank you for believing in us</span>.</p>
-                <p>To every teacher and mentor who joined us: <span class="highlight">your impact continues</span>.</p>
-                <p style="font-size: 1.2rem; color: var(--primary); text-align: center; margin-top: 20px; padding: 15px; border-top: 2px dashed var(--accent);">
-                    <strong>The STEAMtopia MED Team</strong><br>
-                    <small>Carrying our mission forward, making health education accessible and fun for all</small>
+            <div class="card-content">
+                <p>To every young artist who painted a neuron, every builder who crafted a heart, every thinker who reimagined science through art:</p>
+                
+                <p style="text-align: center; font-size: 1.3rem; color: var(--creative); margin: 25px 0; padding: 20px; background: white; border-radius: 10px; border: 2px dashed var(--creative);">
+                    <strong>Your creativity was never just about the projects you made.<br>
+                    It was about the creative thinker you became.</strong>
+                </p>
+                
+                <p>And that creative thinker—the one who sees problems as opportunities, who approaches challenges with imagination, who believes in making the world more beautiful and understandable—that's exactly who we need to lead the mental health revolution.</p>
+                
+                <p style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #e1bee7;">
+                    <strong>The STEAMtopia MED Creative Team</strong><br>
+                    <small>Still believing in creativity, still making health education accessible and fun for all</small>
                 </p>
             </div>
         </div>
